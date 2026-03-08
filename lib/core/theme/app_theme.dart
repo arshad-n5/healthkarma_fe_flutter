@@ -17,12 +17,10 @@ class AppTheme {
 
       // ── Color scheme ────────────────────────
       colorScheme: const ColorScheme.dark(
-        background:   AppColors.background,   // #0D1017
         surface:      AppColors.surface,      // #141921
         primary:      AppColors.primary,      // #9A86E3
         primaryContainer: AppColors.primary700,
         onPrimary:    AppColors.white100,
-        onBackground: AppColors.textPrimary,
         onSurface:    AppColors.textPrimary,
         error:        AppColors.alertRed,
         tertiary:     AppColors.alertBlue,

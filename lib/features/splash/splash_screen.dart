@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _skip() {
-    Navigator.pushReplacementNamed(context, AppRoutes.home);
+    Navigator.pushReplacementNamed(context, AppRoutes.signin);
   }
 
   @override

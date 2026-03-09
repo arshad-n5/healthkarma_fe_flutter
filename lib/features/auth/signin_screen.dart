@@ -66,8 +66,7 @@ class _SigninScreenState extends State<SigninScreen> {
   }
 
   void _onForgotPassword() {
-    // TODO: navigate to forgot password screen
-    debugPrint('Forgot password tapped');
+    Navigator.pushNamed(context, AppRoutes.forgotPassword);
   }
 
   @override
@@ -82,17 +81,17 @@ class _SigninScreenState extends State<SigninScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
 
                 // ── Top bar: Logo + Sign Up ────────────
                 _TopBar(),
 
-                const SizedBox(height: 60),
+                const SizedBox(height: 72),
 
                 // ── Title ─────────────────────────────
                 Text('Signin', style: AppTextStyles.h1B),
 
-                const SizedBox(height: 28),
+                const SizedBox(height: 32),
 
                 // ── Email field ───────────────────────
                 Text('Email ID', style: AppTextStyles.t4R),
@@ -181,12 +180,9 @@ class _TopBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const AppLogo(fontSize: 24),
+        const AppLogo(fontSize: 28),
         GestureDetector(
-          onTap: () {
-            // TODO: navigate to sign up
-            // Navigator.pushNamed(context, AppRoutes.register);
-          },
+          onTap: () => Navigator.pushNamed(context, AppRoutes.signup),
           child: Text(
             'Sign Up',
             style: AppTextStyles.t2M.copyWith(color: AppColors.primary),

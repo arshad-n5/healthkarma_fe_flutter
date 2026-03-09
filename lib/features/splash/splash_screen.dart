@@ -59,58 +59,63 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     final slides = AppStrings.onboardingSlides;
 
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Stack(
-        children: [
-          // ── Slides ─────────────────────────────
-          PageView.builder(
-            controller:    _pageController,
-            itemCount:     slides.length,
-            onPageChanged: _onPageChanged,
-            itemBuilder:   (context, index) => _SlidePage(
-              title:         slides[index]['title']!,
-              description:   slides[index]['description']!,
-              fadeAnimation: _fadeAnimation,
+      body: SafeArea(
+        bottom: false, // we handle bottom manually so slides fill edge-to-edge
+        child: Stack(
+          children: [
+            // ── Slides ─────────────────────────────
+            PageView.builder(
+              controller:    _pageController,
+              itemCount:     slides.length,
+              onPageChanged: _onPageChanged,
+              itemBuilder:   (context, index) => _SlidePage(
+                title:         slides[index]['title']!,
+                description:   slides[index]['description']!,
+                fadeAnimation: _fadeAnimation,
+              ),
             ),
-          ),
 
-          // ── Bottom bar ─────────────────────────
-          Positioned(
-            bottom: 48,
-            left:   28,
-            right:  28,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Dot indicators
-                Row(
-                  children: List.generate(slides.length, (i) {
-                    final bool active = i == _currentPage;
-                    return AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      curve:    Curves.easeInOut,
-                      margin:   const EdgeInsets.only(right: 6),
-                      width:    active ? 28 : 10,
-                      height:   4,
-                      decoration: BoxDecoration(
-                        color:        active ? AppColors.primary : AppColors.dotInactive,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    );
-                  }),
-                ),
+            // ── Bottom bar — respects home bar ─────
+            Positioned(
+              bottom: bottomPadding + 24,
+              left:   28,
+              right:  28,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Dot indicators
+                  Row(
+                    children: List.generate(slides.length, (i) {
+                      final bool active = i == _currentPage;
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        curve:    Curves.easeInOut,
+                        margin:   const EdgeInsets.only(right: 6),
+                        width:    active ? 28 : 10,
+                        height:   4,
+                        decoration: BoxDecoration(
+                          color:        active ? AppColors.primary : AppColors.dotInactive,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      );
+                    }),
+                  ),
 
-                // Skip
-                GestureDetector(
-                  onTap: _skip,
-                  child: Text(AppStrings.skip, style: AppTextStyles.t4R),
-                ),
-              ],
+                  // Skip
+                  GestureDetector(
+                    onTap: _skip,
+                    child: Text(AppStrings.skip, style: AppTextStyles.t4R),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

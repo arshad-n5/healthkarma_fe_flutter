@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
+import '../../routes/app_routes.dart';
 
 class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({super.key});
@@ -86,7 +87,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   void _onContinue() {
     if (!_canContinue) return;
-    debugPrint('Continue to step 2');
+    Navigator.pushNamed(context, AppRoutes.lifestyle);
   }
 
   @override
@@ -476,9 +477,11 @@ class _InlineGenderPicker extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text(option,
-                          style: AppTextStyles.t2R
-                              .copyWith(color: AppColors.textPrimary)),
+                      Expanded(
+                        child: Text(option,
+                            style: AppTextStyles.t2R
+                                .copyWith(color: AppColors.textPrimary)),
+                      ),
                     ],
                   ),
                 ),

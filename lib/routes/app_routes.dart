@@ -7,6 +7,9 @@ import '../features/auth/signup_screen.dart';
 import '../features/auth/forgot_password_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/profile/create_profile_screen.dart';
+import '../features/profile/lifestyle_screen.dart';
+import '../features/profile/medications_screen.dart';
+import '../features/auth/terms_screen.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -20,6 +23,9 @@ class AppRoutes {
   static const String passwordSuccess = '/password-success';
   static const String home            = '/home';
   static const String createProfile   = '/create-profile';
+  static const String lifestyle        = '/lifestyle';
+  static const String medications      = '/medications';
+  static const String terms            = '/terms';
 
   static Map<String, WidgetBuilder> get routes => {
         splash:          (_) => const SplashScreen(),
@@ -31,5 +37,8 @@ class AppRoutes {
         passwordSuccess: (_) => const PasswordSuccessScreen(),
         home:            (_) => const HomeScreen(),
         createProfile:   (_) => const CreateProfileScreen(),
+        lifestyle:       (_) => const LifestyleScreen(),
+        medications:     (_) => const MedicationsScreen(),
+        terms:           (_) => const TermsScreen(),
       };
 }

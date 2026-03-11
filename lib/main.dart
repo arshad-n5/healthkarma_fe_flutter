@@ -36,7 +36,7 @@ class HealthKarmaApp extends StatelessWidget {
       title:        'HealthKarma',
       debugShowCheckedModeBanner: false,
       theme:        AppTheme.dark,
-      initialRoute: AppRoutes.splash,
+      initialRoute: AppRoutes.home,
       routes:       AppRoutes.routes,
     );
   }

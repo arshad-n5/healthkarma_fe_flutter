@@ -29,3 +29,5 @@ flutter:
   assets:
     - assets/HomeAssets/
     - assets/HomeAssets/nav/
+    # - assets/images/
+    # - assets/icons/

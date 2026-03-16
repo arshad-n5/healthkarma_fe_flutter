@@ -1065,12 +1065,12 @@ class _ReadingItem {
 class _TodaysReading extends StatelessWidget {
   static const _items = [
     _ReadingItem(
-      'assets/HomeAssets/reading1.png',
+      'assets/HomeAssets/e432e779c829241672baa548d3a9008303cb40e8.jpg',
       'Cleaning Your Home to Reduce Allergens',
       'Health',
     ),
     _ReadingItem(
-      'assets/HomeAssets/reading2.png',
+      'assets/HomeAssets/646cdc352590ca86194585699c4ec1cd68724459.jpg',
       'Pollen Season Guide',
       'Interview',
     ),

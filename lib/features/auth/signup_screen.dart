@@ -65,6 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
   void _onSignUp() {
     if (!_formFilled) return;
     // TODO: wire up to your auth service
+    Navigator.pushReplacementNamed(context, AppRoutes.createProfile);
     debugPrint('Sign up tapped');
   }
 

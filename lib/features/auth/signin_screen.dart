@@ -60,8 +60,9 @@ class _SigninScreenState extends State<SigninScreen> {
 
   void _onSignIn() {
     if (!_formFilled) return;
+    
     // TODO: wire up to your auth service
-    // Navigator.pushReplacementNamed(context, AppRoutes.home);
+    Navigator.pushReplacementNamed(context, AppRoutes.home);
     debugPrint('Sign in tapped');
   }
 

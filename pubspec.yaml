@@ -29,5 +29,7 @@ flutter:
   assets:
     - assets/HomeAssets/
     - assets/HomeAssets/nav/
+    - assets/MedicationAssets/
+    
     # - assets/images/
     # - assets/icons/

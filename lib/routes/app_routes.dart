@@ -11,6 +11,7 @@ import '../features/profile/lifestyle_screen.dart';
 import '../features/profile/medications_screen.dart';
 import '../features/auth/terms_screen.dart';
 import '../features/medications/medications_screen.dart' as medlist;
+import '../features/appointments/appointments_screen.dart' as apptlist; // ← NEW
 
 class AppRoutes {
   AppRoutes._();
@@ -24,10 +25,11 @@ class AppRoutes {
   static const String passwordSuccess = '/password-success';
   static const String home            = '/home';
   static const String createProfile   = '/create-profile';
-  static const String lifestyle        = '/lifestyle';
-  static const String medications      = '/medications';
-  static const String terms            = '/terms';
-  static const String medications2     = '/medications-screen';
+  static const String lifestyle       = '/lifestyle';
+  static const String medications     = '/medications';
+  static const String terms           = '/terms';
+  static const String medications2    = '/medications-screen';
+  static const String appointments    = '/appointments'; // ← NEW
 
   static Map<String, WidgetBuilder> get routes => {
         splash:          (_) => const SplashScreen(),
@@ -43,5 +45,6 @@ class AppRoutes {
         medications:     (_) => const MedicationsScreen(),
         terms:           (_) => const TermsScreen(),
         medications2:    (_) => const medlist.MedListScreen(),
+        appointments:    (_) => const apptlist.AppointmentsScreen(), // ← NEW
       };
 }

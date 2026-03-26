@@ -210,7 +210,7 @@ class _AppointmentsBodyState extends State<AppointmentsBody>
             indicatorSize: TabBarIndicatorSize.label,
             dividerColor: AppColors.surfaceBorder.withValues(alpha: 0.4),
             tabs: const [
-              Tab(text: 'Upcoming (01)'),
+              Tab(text: 'Upcoming(01)'),
               Tab(text: 'Past'),
               Tab(text: 'Cancelled'),
             ],

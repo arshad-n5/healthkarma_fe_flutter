@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
 import '../medications/medications_screen.dart' as medlist;
-import '../appointments/appointments_screen.dart' as apptlist;  // ← NEW
+import '../appointments/appointments_screen.dart' as apptlist;
+import '../more/more_screen.dart' as morelist;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -68,9 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const _MedListBody(),
-          const apptlist.AppointmentsBody(),   // ← REPLACES _PlaceholderTab(label: 'Appointments')
+          const apptlist.AppointmentsBody(),
           const _PlaceholderTab(label: 'Chat'),
-          const _PlaceholderTab(label: 'More'),
+          const morelist.MoreBody(),
         ],
       ),
       bottomNavigationBar: _BottomNavBar(

@@ -1,5 +1,3 @@
-// lib/features/profile/create_profile_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/constants/colors.dart';
@@ -15,23 +13,23 @@ class CreateProfileScreen extends StatefulWidget {
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
   final _firstNameCtrl = TextEditingController();
-  final _lastNameCtrl  = TextEditingController();
-  final _heightCtrl    = TextEditingController();
-  final _weightCtrl    = TextEditingController();
-  final _phoneCtrl     = TextEditingController();
-  final _addressCtrl   = TextEditingController();
-  final _zipCtrl       = TextEditingController();
-  final _mrnCtrl       = TextEditingController();
+  final _lastNameCtrl = TextEditingController();
+  final _heightCtrl = TextEditingController();
+  final _weightCtrl = TextEditingController();
+  final _phoneCtrl = TextEditingController();
+  final _addressCtrl = TextEditingController();
+  final _zipCtrl = TextEditingController();
+  final _mrnCtrl = TextEditingController();
 
   DateTime? _dob;
-  bool      _showCalendar = false;
-  bool      _showGender   = false;
-  DateTime  _calendarMonth = DateTime.now();
+  bool _showCalendar = false;
+  bool _showGender = false;
+  DateTime _calendarMonth = DateTime.now();
 
-  String?   _gender;
-  String    _heightUnit = 'ft';
-  String    _weightUnit = 'lbs';
-  String?   _city;
+  String? _gender;
+  String _heightUnit = 'ft';
+  String _weightUnit = 'lbs';
+  String? _city;
 
   static const List<String> _genderOptions = [
     'Male',
@@ -44,8 +42,16 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   ];
 
   static const List<String> _cities = [
-    'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix',
-    'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose',
+    'New York',
+    'Los Angeles',
+    'Chicago',
+    'Houston',
+    'Phoenix',
+    'Philadelphia',
+    'San Antonio',
+    'San Diego',
+    'Dallas',
+    'San Jose',
   ];
 
   bool get _canContinue =>
@@ -64,8 +70,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   void initState() {
     super.initState();
     for (final c in [
-      _firstNameCtrl, _lastNameCtrl, _heightCtrl, _weightCtrl,
-      _phoneCtrl, _addressCtrl, _zipCtrl, _mrnCtrl,
+      _firstNameCtrl,
+      _lastNameCtrl,
+      _heightCtrl,
+      _weightCtrl,
+      _phoneCtrl,
+      _addressCtrl,
+      _zipCtrl,
+      _mrnCtrl,
     ]) {
       c.addListener(() => setState(() {}));
     }
@@ -74,8 +86,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   @override
   void dispose() {
     for (final c in [
-      _firstNameCtrl, _lastNameCtrl, _heightCtrl, _weightCtrl,
-      _phoneCtrl, _addressCtrl, _zipCtrl, _mrnCtrl,
+      _firstNameCtrl,
+      _lastNameCtrl,
+      _heightCtrl,
+      _weightCtrl,
+      _phoneCtrl,
+      _addressCtrl,
+      _zipCtrl,
+      _mrnCtrl,
     ]) {
       c.dispose();
     }
@@ -93,7 +111,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:         AppColors.background,
+      backgroundColor: AppColors.background,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
@@ -108,44 +126,34 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _FormCard(children: [
-
-                      // ── First Name ──────────────────
                       _FieldLabel('First Name'),
                       _InputField(controller: _firstNameCtrl),
                       const SizedBox(height: 16),
-
-                      // ── Last Name ───────────────────
                       _FieldLabel('Last Name'),
                       _InputField(controller: _lastNameCtrl),
                       const SizedBox(height: 16),
-
-                      // ── Date of Birth ───────────────
                       _FieldLabel('Date of Birth'),
                       _TappableField(
                         text: _dob != null ? _formatDate(_dob!) : '',
                         trailing: const Icon(Icons.calendar_month_outlined,
                             color: AppColors.textMuted, size: 20),
-                        onTap: () => setState(
-                            () => _showCalendar = !_showCalendar),
+                        onTap: () =>
+                            setState(() => _showCalendar = !_showCalendar),
                       ),
-
-                      // ── Inline Calendar ─────────────
                       if (_showCalendar) ...[
                         const SizedBox(height: 12),
                         _InlineCalendar(
-                          selectedDate:  _dob,
-                          displayMonth:  _calendarMonth,
+                          selectedDate: _dob,
+                          displayMonth: _calendarMonth,
                           onMonthChanged: (m) =>
                               setState(() => _calendarMonth = m),
                           onDateSelected: (d) => setState(() {
-                            _dob          = d;
+                            _dob = d;
                             _showCalendar = false;
                           }),
                         ),
                       ],
                       const SizedBox(height: 16),
-
-                      // ── Gender ──────────────────────
                       _FieldLabel('Gender'),
                       _TappableField(
                         text: _gender ?? '',
@@ -153,83 +161,67 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           _showGender
                               ? Icons.keyboard_arrow_up_rounded
                               : Icons.keyboard_arrow_down_rounded,
-                          color: AppColors.textMuted, size: 22,
+                          color: AppColors.textMuted,
+                          size: 22,
                         ),
-                        onTap: () => setState(
-                            () => _showGender = !_showGender),
+                        onTap: () => setState(() => _showGender = !_showGender),
                       ),
                       if (_showGender) ...[
                         const SizedBox(height: 12),
                         _InlineGenderPicker(
-                          options:  _genderOptions,
+                          options: _genderOptions,
                           selected: _gender,
                           onChanged: (v) => setState(() {
-                            _gender     = v;
+                            _gender = v;
                             _showGender = false;
                           }),
                         ),
                       ],
                       const SizedBox(height: 16),
-
-                      // ── Height ──────────────────────
                       _FieldLabel('Height'),
                       _UnitInputField(
-                        controller:    _heightCtrl,
-                        unit:          _heightUnit,
-                        units:         const ['ft', 'cm'],
-                        onUnitChanged: (v) =>
-                            setState(() => _heightUnit = v),
+                        controller: _heightCtrl,
+                        unit: _heightUnit,
+                        units: const ['ft', 'cm'],
+                        onUnitChanged: (v) => setState(() => _heightUnit = v),
                       ),
                       const SizedBox(height: 16),
-
-                      // ── Weight ──────────────────────
                       _FieldLabel('Weight'),
                       _UnitInputField(
-                        controller:    _weightCtrl,
-                        unit:          _weightUnit,
-                        units:         const ['lbs', 'kg'],
-                        onUnitChanged: (v) =>
-                            setState(() => _weightUnit = v),
+                        controller: _weightCtrl,
+                        unit: _weightUnit,
+                        units: const ['lbs', 'kg'],
+                        onUnitChanged: (v) => setState(() => _weightUnit = v),
                       ),
                       const SizedBox(height: 16),
-
-                      // ── Phone ───────────────────────
                       _FieldLabel('Phone number'),
                       _InputField(
-                        controller:   _phoneCtrl,
+                        controller: _phoneCtrl,
                         keyboardType: TextInputType.phone,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                       ),
                       const SizedBox(height: 16),
-
-                      // ── Address ─────────────────────
                       _FieldLabel('Address'),
                       _InputField(controller: _addressCtrl),
                       const SizedBox(height: 16),
-
-                      // ── City ────────────────────────
                       _FieldLabel('City'),
                       _DropdownField(
-                        value:     _city,
-                        items:     _cities,
+                        value: _city,
+                        items: _cities,
                         onChanged: (v) => setState(() => _city = v),
                       ),
                       const SizedBox(height: 16),
-
-                      // ── Zip Code ────────────────────
                       _FieldLabel('Zip Code'),
                       _InputField(
-                        controller:   _zipCtrl,
+                        controller: _zipCtrl,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                       ),
                       const SizedBox(height: 16),
-
-                      // ── MRN (optional) ──────────────
                       Row(children: [
                         Text('MRN (Medical Record Number)',
                             style: AppTextStyles.t4R),
@@ -241,17 +233,12 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                       const SizedBox(height: 6),
                       _InputField(controller: _mrnCtrl),
                     ]),
-
                     const SizedBox(height: 24),
-
-                    // ── Continue button ─────────────
                     _ContinueButton(
                       active: _canContinue,
-                      onTap:  _onContinue,
+                      onTap: _onContinue,
                     ),
-
-                    SizedBox(
-                        height: MediaQuery.of(context).padding.bottom + 8),
+                    SizedBox(height: MediaQuery.of(context).padding.bottom + 8),
                   ],
                 ),
               ),
@@ -263,13 +250,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Inline Calendar
-// ─────────────────────────────────────────────
-
 class _InlineCalendar extends StatelessWidget {
-  final DateTime?  selectedDate;
-  final DateTime   displayMonth;
+  final DateTime? selectedDate;
+  final DateTime displayMonth;
   final ValueChanged<DateTime> onMonthChanged;
   final ValueChanged<DateTime> onDateSelected;
 
@@ -281,15 +264,25 @@ class _InlineCalendar extends StatelessWidget {
   });
 
   static const _weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  static const _months   = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December',
+  static const _months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   List<DateTime?> _buildDays() {
-    final first     = DateTime(displayMonth.year, displayMonth.month, 1);
-    final daysCount = DateUtils.getDaysInMonth(
-        displayMonth.year, displayMonth.month);
+    final first = DateTime(displayMonth.year, displayMonth.month, 1);
+    final daysCount =
+        DateUtils.getDaysInMonth(displayMonth.year, displayMonth.month);
     final startWeekday = first.weekday % 7; // Sunday = 0
     final cells = <DateTime?>[];
     for (int i = 0; i < startWeekday; i++) cells.add(null);
@@ -301,22 +294,19 @@ class _InlineCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final days  = _buildDays();
-    final label =
-        '${_months[displayMonth.month - 1]} ${displayMonth.year}';
+    final days = _buildDays();
+    final label = '${_months[displayMonth.month - 1]} ${displayMonth.year}';
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color:        AppColors.surfaceLight,
+        color: AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
-          // ── Month header ─────────────────
           Row(
             children: [
-              // Month + year + chevron
               GestureDetector(
                 onTap: () {/* year picker could go here */},
                 child: Row(
@@ -331,7 +321,6 @@ class _InlineCalendar extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              // Prev
               GestureDetector(
                 onTap: () => onMonthChanged(
                     DateTime(displayMonth.year, displayMonth.month - 1)),
@@ -339,7 +328,6 @@ class _InlineCalendar extends StatelessWidget {
                     color: AppColors.textPrimary, size: 22),
               ),
               const SizedBox(width: 8),
-              // Next
               GestureDetector(
                 onTap: () => onMonthChanged(
                     DateTime(displayMonth.year, displayMonth.month + 1)),
@@ -348,10 +336,7 @@ class _InlineCalendar extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(height: 16),
-
-          // ── Weekday headers ──────────────
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: _weekdays
@@ -366,26 +351,23 @@ class _InlineCalendar extends StatelessWidget {
                     ))
                 .toList(),
           ),
-
           const SizedBox(height: 8),
-
-          // ── Day grid ─────────────────────
           GridView.count(
             crossAxisCount: 7,
-            shrinkWrap:     true,
-            physics:        const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             childAspectRatio: 1.0,
             children: days.map((day) {
               if (day == null) return const SizedBox.shrink();
 
               final isSelected = selectedDate != null &&
-                  day.year  == selectedDate!.year &&
+                  day.year == selectedDate!.year &&
                   day.month == selectedDate!.month &&
-                  day.day   == selectedDate!.day;
+                  day.day == selectedDate!.day;
 
-              final isToday = day.year  == DateTime.now().year &&
-                              day.month == DateTime.now().month &&
-                              day.day   == DateTime.now().day;
+              final isToday = day.year == DateTime.now().year &&
+                  day.month == DateTime.now().month &&
+                  day.day == DateTime.now().day;
 
               return GestureDetector(
                 onTap: () => onDateSelected(day),
@@ -421,13 +403,9 @@ class _InlineCalendar extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Inline Gender Picker
-// ─────────────────────────────────────────────
-
 class _InlineGenderPicker extends StatelessWidget {
-  final List<String>      options;
-  final String?           selected;
+  final List<String> options;
+  final String? selected;
   final ValueChanged<String> onChanged;
 
   const _InlineGenderPicker({
@@ -440,31 +418,31 @@ class _InlineGenderPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color:        AppColors.surfaceLight,
+        color: AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: List.generate(options.length, (i) {
-          final option     = options[i];
+          final option = options[i];
           final isSelected = option == selected;
-          final isLast     = i == options.length - 1;
+          final isLast = i == options.length - 1;
 
           return Column(
             children: [
               InkWell(
                 onTap: () => onChanged(option),
                 borderRadius: BorderRadius.vertical(
-                  top:    i == 0 ? const Radius.circular(12) : Radius.zero,
+                  top: i == 0 ? const Radius.circular(12) : Radius.zero,
                   bottom: isLast ? const Radius.circular(12) : Radius.zero,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   child: Row(
                     children: [
                       // Radio circle
                       Container(
-                        width:  20,
+                        width: 20,
                         height: 20,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -488,9 +466,9 @@ class _InlineGenderPicker extends StatelessWidget {
               ),
               if (!isLast)
                 Divider(
-                  height:  1,
+                  height: 1,
                   thickness: 1,
-                  color:   AppColors.surfaceBorder.withOpacity(0.4),
+                  color: AppColors.surfaceBorder.withOpacity(0.4),
                   indent: 48,
                 ),
             ],
@@ -500,10 +478,6 @@ class _InlineGenderPicker extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Top bar
-// ─────────────────────────────────────────────
 
 class _TopBar extends StatelessWidget {
   final VoidCallback onSkip;
@@ -522,21 +496,20 @@ class _TopBar extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           SizedBox(
-            width:  44,
+            width: 44,
             height: 44,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 CircularProgressIndicator(
-                  value:       1 / 3,
+                  value: 1 / 3,
                   strokeWidth: 3,
                   backgroundColor: AppColors.black200,
-                  valueColor:
-                      const AlwaysStoppedAnimation(AppColors.primary),
+                  valueColor: const AlwaysStoppedAnimation(AppColors.primary),
                 ),
                 Text('1/3',
-                    style: AppTextStyles.t5SB
-                        .copyWith(color: AppColors.primary)),
+                    style:
+                        AppTextStyles.t5SB.copyWith(color: AppColors.primary)),
               ],
             ),
           ),
@@ -553,18 +526,13 @@ class _TopBar extends StatelessWidget {
           GestureDetector(
             onTap: onSkip,
             child: Text('Skip',
-                style: AppTextStyles.t2M
-                    .copyWith(color: AppColors.primary)),
+                style: AppTextStyles.t2M.copyWith(color: AppColors.primary)),
           ),
         ],
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Form card wrapper
-// ─────────────────────────────────────────────
 
 class _FormCard extends StatelessWidget {
   final List<Widget> children;
@@ -573,10 +541,10 @@ class _FormCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width:   double.infinity,
+      width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color:        AppColors.surface,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -586,10 +554,6 @@ class _FormCard extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Field widgets
-// ─────────────────────────────────────────────
 
 class _FieldLabel extends StatelessWidget {
   final String text;
@@ -603,9 +567,9 @@ class _FieldLabel extends StatelessWidget {
 }
 
 class _InputField extends StatelessWidget {
-  final TextEditingController          controller;
-  final TextInputType?                 keyboardType;
-  final List<TextInputFormatter>?      inputFormatters;
+  final TextEditingController controller;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const _InputField({
     required this.controller,
@@ -616,21 +580,20 @@ class _InputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller:      controller,
-      keyboardType:    keyboardType,
+      controller: controller,
+      keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
       decoration: InputDecoration(
-        filled:    true,
+        filled: true,
         fillColor: AppColors.surfaceLight,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide:   BorderSide.none,
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide:
-              const BorderSide(color: AppColors.primary, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -640,8 +603,8 @@ class _InputField extends StatelessWidget {
 }
 
 class _TappableField extends StatelessWidget {
-  final String       text;
-  final Widget       trailing;
+  final String text;
+  final Widget trailing;
   final VoidCallback onTap;
 
   const _TappableField({
@@ -655,10 +618,10 @@ class _TappableField extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height:  44,
+        height: 44,
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
-          color:        AppColors.surfaceLight,
+          color: AppColors.surfaceLight,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -666,8 +629,7 @@ class _TappableField extends StatelessWidget {
             Expanded(
               child: Text(
                 text.isNotEmpty ? text : '',
-                style: AppTextStyles.t2R
-                    .copyWith(color: AppColors.textPrimary),
+                style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
               ),
             ),
             trailing,
@@ -680,9 +642,9 @@ class _TappableField extends StatelessWidget {
 
 class _UnitInputField extends StatelessWidget {
   final TextEditingController controller;
-  final String                unit;
-  final List<String>          units;
-  final ValueChanged<String>  onUnitChanged;
+  final String unit;
+  final List<String> units;
+  final ValueChanged<String> onUnitChanged;
 
   const _UnitInputField({
     required this.controller,
@@ -696,40 +658,37 @@ class _UnitInputField extends StatelessWidget {
     return Container(
       height: 44,
       decoration: BoxDecoration(
-        color:        AppColors.surfaceLight,
+        color: AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: [
           Expanded(
             child: TextField(
-              controller:   controller,
+              controller: controller,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'[\d.]')),
               ],
-              style: AppTextStyles.t2R
-                  .copyWith(color: AppColors.textPrimary),
+              style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
               decoration: const InputDecoration(
-                border:         InputBorder.none,
+                border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(horizontal: 12),
               ),
             ),
           ),
           Container(
-            height:  44,
+            height: 44,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: const BoxDecoration(
               color: AppColors.black500,
-              borderRadius:
-                  BorderRadius.horizontal(right: Radius.circular(8)),
+              borderRadius: BorderRadius.horizontal(right: Radius.circular(8)),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                value:        unit,
+                value: unit,
                 dropdownColor: AppColors.surface,
-                style: AppTextStyles.t4R
-                    .copyWith(color: AppColors.textPrimary),
+                style: AppTextStyles.t4R.copyWith(color: AppColors.textPrimary),
                 icon: const Icon(Icons.keyboard_arrow_down_rounded,
                     color: AppColors.textMuted, size: 18),
                 items: units
@@ -748,8 +707,8 @@ class _UnitInputField extends StatelessWidget {
 }
 
 class _DropdownField extends StatelessWidget {
-  final String?               value;
-  final List<String>          items;
+  final String? value;
+  final List<String> items;
   final ValueChanged<String?> onChanged;
 
   const _DropdownField({
@@ -761,19 +720,18 @@ class _DropdownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:  44,
+      height: 44,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color:        AppColors.surfaceLight,
+        color: AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(8),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          value:        value,
-          isExpanded:   true,
+          value: value,
+          isExpanded: true,
           dropdownColor: AppColors.surface,
-          style: AppTextStyles.t2R
-              .copyWith(color: AppColors.textPrimary),
+          style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
           hint: const SizedBox.shrink(),
           icon: const Icon(Icons.keyboard_arrow_down_rounded,
               color: AppColors.textMuted, size: 22),
@@ -787,12 +745,8 @@ class _DropdownField extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Continue button
-// ─────────────────────────────────────────────
-
 class _ContinueButton extends StatelessWidget {
-  final bool         active;
+  final bool active;
   final VoidCallback onTap;
 
   const _ContinueButton({required this.active, required this.onTap});
@@ -801,17 +755,17 @@ class _ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
-      height:   52,
+      height: 52,
       decoration: BoxDecoration(
-        color:        active ? AppColors.primary : AppColors.surfaceLight,
+        color: active ? AppColors.primary : AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Material(
-        color:        Colors.transparent,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(14),
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
-          onTap:        active ? onTap : null,
+          onTap: active ? onTap : null,
           child: Center(
             child: Text(
               'Continue',

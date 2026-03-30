@@ -1,5 +1,3 @@
-// lib/features/auth/forgot_password_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/constants/colors.dart';
@@ -7,10 +5,6 @@ import '../../core/constants/text_styles.dart';
 import '../../routes/app_routes.dart';
 import '../../widgets/app_logo.dart';
 import '../../widgets/success_checkmark.dart';
-
-// ─────────────────────────────────────────────
-//  1. Forgot Password
-// ─────────────────────────────────────────────
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -74,28 +68,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               const SizedBox(height: 20),
               const AppLogo(fontSize: 28),
               const SizedBox(height: 64),
-
               Text('Forgot Password', style: AppTextStyles.h1B),
               const SizedBox(height: 12),
               Text(
                 'Please enter your email to receive a\nconfirmation code to set a new password.',
                 style: AppTextStyles.t3R,
               ),
-
               const SizedBox(height: 36),
-
               Text('Enter your registered email ID', style: AppTextStyles.t4R),
               const SizedBox(height: 8),
-
               Focus(
                 onFocusChange: (hasFocus) {
                   if (!hasFocus) _onUnfocus();
                 },
                 child: TextField(
-                  controller:   _emailController,
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  onChanged:    (_) => setState(() => _emailValid = true),
-                  style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
+                  onChanged: (_) => setState(() => _emailValid = true),
+                  style:
+                      AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
                   decoration: _inputDeco(hasError: !_emailValid),
                 ),
               ),
@@ -106,15 +97,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   style: AppTextStyles.t5M.copyWith(color: AppColors.alertRed),
                 ),
               ],
-
               const SizedBox(height: 28),
-
               _ActionButton(
-                label:  'Confirm Mail',
+                label: 'Confirm Mail',
                 active: _formFilled,
-                onTap:  _onConfirm,
+                onTap: _onConfirm,
               ),
-
               const SizedBox(height: 48),
               Center(child: _EmergencyPill()),
               const SizedBox(height: 32),
@@ -126,10 +114,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 }
 
-// ─────────────────────────────────────────────
-//  2. OTP Verification
-// ─────────────────────────────────────────────
-
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
 
@@ -139,15 +123,16 @@ class OtpVerificationScreen extends StatefulWidget {
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final _otpController = TextEditingController();
-  final _focusNode     = FocusNode();
+  final _focusNode = FocusNode();
 
-  int  _secondsLeft = 300;
-  bool _canResend   = false;
+  int _secondsLeft = 300;
+  bool _canResend = false;
 
   String get _email =>
-      (ModalRoute.of(context)?.settings.arguments as String?) ?? 'your@mail.com';
+      (ModalRoute.of(context)?.settings.arguments as String?) ??
+      'your@mail.com';
 
-  String get _otp   => _otpController.text;
+  String get _otp => _otpController.text;
   bool get _otpFilled => _otp.length == 6;
 
   @override
@@ -164,7 +149,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   void _startTimer() {
     setState(() {
       _secondsLeft = 300;
-      _canResend   = false;
+      _canResend = false;
     });
     Future.doWhile(() async {
       await Future.delayed(const Duration(seconds: 1));
@@ -217,7 +202,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               const SizedBox(height: 20),
               const AppLogo(fontSize: 28),
               const SizedBox(height: 48),
-
               Text('Verify email address', style: AppTextStyles.h1B),
               const SizedBox(height: 12),
               RichText(
@@ -230,17 +214,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           : 'An OTP has been send to ',
                     ),
                     TextSpan(
-                      text:  _email,
+                      text: _email,
                       style: AppTextStyles.t3R
                           .copyWith(color: AppColors.textPrimary),
                     ),
                   ],
                 ),
               ),
-
               const SizedBox(height: 56),
-
-              // ── OTP: hidden field + visual digits ─────
               GestureDetector(
                 onTap: () => _focusNode.requestFocus(),
                 child: SizedBox(
@@ -248,44 +229,40 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   child: Stack(
                     clipBehavior: Clip.none,
                     children: [
-                    // Hidden TextField — captures actual keyboard input
-                    Positioned(
-                      left: -9999,
-                      child: SizedBox(
-                        width: 1,
-                        height: 1,
-                        child: TextField(
-                          controller:   _otpController,
-                          focusNode:    _focusNode,
-                          keyboardType: TextInputType.number,
-                          maxLength:    6,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          decoration: const InputDecoration(
-                            counterText: '',
-                            border:      InputBorder.none,
+                      Positioned(
+                        left: -9999,
+                        child: SizedBox(
+                          width: 1,
+                          height: 1,
+                          child: TextField(
+                            controller: _otpController,
+                            focusNode: _focusNode,
+                            keyboardType: TextInputType.number,
+                            maxLength: 6,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            decoration: const InputDecoration(
+                              counterText: '',
+                              border: InputBorder.none,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    // Visual digit row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: List.generate(6, (i) {
-                        final digit     = i < _otp.length ? _otp[i] : '';
-                        final isFocused = i == _otp.length && _focusNode.hasFocus;
-                        return _OtpDigit(digit: digit, isFocused: isFocused);
-                      }),
-                    ),
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(6, (i) {
+                          final digit = i < _otp.length ? _otp[i] : '';
+                          final isFocused =
+                              i == _otp.length && _focusNode.hasFocus;
+                          return _OtpDigit(digit: digit, isFocused: isFocused);
+                        }),
+                      ),
+                    ],
                   ),
                 ),
               ),
-
               const SizedBox(height: 56),
-
-              // ── Resend ────────────────────────────
               Center(
                 child: RichText(
                   text: TextSpan(
@@ -313,18 +290,16 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               Center(
                 child: Text(
                   _timerLabel,
-                  style: AppTextStyles.h6M.copyWith(color: AppColors.textPrimary),
+                  style:
+                      AppTextStyles.h6M.copyWith(color: AppColors.textPrimary),
                 ),
               ),
-
               const SizedBox(height: 32),
-
               _ActionButton(
-                label:  'Verify',
+                label: 'Verify',
                 active: _otpFilled,
-                onTap:  _onVerify,
+                onTap: _onVerify,
               ),
-
               const SizedBox(height: 40),
               Center(child: _EmergencyPill()),
               const SizedBox(height: 32),
@@ -336,10 +311,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
 }
 
-// ─────────────────────────────────────────────
-//  3. New Password
-// ─────────────────────────────────────────────
-
 class NewPasswordScreen extends StatefulWidget {
   const NewPasswordScreen({super.key});
 
@@ -349,9 +320,9 @@ class NewPasswordScreen extends StatefulWidget {
 
 class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final _passwordController = TextEditingController();
-  final _confirmController  = TextEditingController();
-  bool _obscurePassword     = true;
-  bool _obscureConfirm      = true;
+  final _confirmController = TextEditingController();
+  bool _obscurePassword = true;
+  bool _obscureConfirm = true;
 
   bool get _formFilled =>
       _passwordController.text.isNotEmpty &&
@@ -396,53 +367,45 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               const SizedBox(height: 20),
               const AppLogo(fontSize: 28),
               const SizedBox(height: 64),
-
               Text('New Password', style: AppTextStyles.h1B),
               const SizedBox(height: 8),
               Text('Enter new password', style: AppTextStyles.t3R),
-
               const SizedBox(height: 32),
-
               Text('Password', style: AppTextStyles.t4R),
               const SizedBox(height: 8),
               TextField(
-                controller:  _passwordController,
+                controller: _passwordController,
                 obscureText: _obscurePassword,
                 style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
                 decoration: _inputDeco(
                   suffixIcon: _eyeIcon(
-                    obscure:  _obscurePassword,
+                    obscure: _obscurePassword,
                     onToggle: () =>
                         setState(() => _obscurePassword = !_obscurePassword),
                   ),
                 ),
               ),
-
               const SizedBox(height: 20),
-
               Text('Confirm Password', style: AppTextStyles.t4R),
               const SizedBox(height: 8),
               TextField(
-                controller:  _confirmController,
+                controller: _confirmController,
                 obscureText: _obscureConfirm,
                 style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
                 decoration: _inputDeco(
                   suffixIcon: _eyeIcon(
-                    obscure:  _obscureConfirm,
+                    obscure: _obscureConfirm,
                     onToggle: () =>
                         setState(() => _obscureConfirm = !_obscureConfirm),
                   ),
                 ),
               ),
-
               const SizedBox(height: 32),
-
               _ActionButton(
-                label:  'Reset Password',
+                label: 'Reset Password',
                 active: _formFilled,
-                onTap:  _onReset,
+                onTap: _onReset,
               ),
-
               const SizedBox(height: 48),
               Center(child: _EmergencyPill()),
               const SizedBox(height: 32),
@@ -453,10 +416,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  4. Password Success
-// ─────────────────────────────────────────────
 
 class PasswordSuccessScreen extends StatelessWidget {
   const PasswordSuccessScreen({super.key});
@@ -482,7 +441,7 @@ class PasswordSuccessScreen extends StatelessWidget {
               ),
               const Spacer(),
               SizedBox(
-                width:  double.infinity,
+                width: double.infinity,
                 height: 52,
                 child: OutlinedButton(
                   onPressed: () => Navigator.pushNamedAndRemoveUntil(
@@ -491,14 +450,16 @@ class PasswordSuccessScreen extends StatelessWidget {
                     (route) => false,
                   ),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.primary, width: 1.5),
+                    side:
+                        const BorderSide(color: AppColors.primary, width: 1.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   child: Text(
                     'Go to Sign in',
-                    style: AppTextStyles.t2SB.copyWith(color: AppColors.primary),
+                    style:
+                        AppTextStyles.t2SB.copyWith(color: AppColors.primary),
                   ),
                 ),
               ),
@@ -510,10 +471,6 @@ class PasswordSuccessScreen extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Shared widgets
-// ─────────────────────────────────────────────
 
 class _BackButton extends StatelessWidget {
   @override
@@ -548,14 +505,14 @@ class _ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
-      width:    double.infinity,
-      height:   52,
+      width: double.infinity,
+      height: 52,
       decoration: BoxDecoration(
-        color:        active ? AppColors.primary : AppColors.surfaceLight,
+        color: active ? AppColors.primary : AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Material(
-        color:        Colors.transparent,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
@@ -580,7 +537,7 @@ class _EmergencyPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color:        AppColors.surfaceLight,
+        color: AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.surfaceBorder, width: 1),
       ),
@@ -590,7 +547,7 @@ class _EmergencyPill extends StatelessWidget {
           children: [
             const TextSpan(text: 'In case of emergency, '),
             TextSpan(
-              text:  'Call 911',
+              text: 'Call 911',
               style: AppTextStyles.t5SB.copyWith(color: AppColors.alertRed),
             ),
           ],
@@ -602,7 +559,7 @@ class _EmergencyPill extends StatelessWidget {
 
 class _OtpDigit extends StatelessWidget {
   final String digit;
-  final bool   isFocused;
+  final bool isFocused;
 
   const _OtpDigit({required this.digit, required this.isFocused});
 
@@ -619,10 +576,10 @@ class _OtpDigit extends StatelessWidget {
               child: Text(
                 digit,
                 style: const TextStyle(
-                  color:      AppColors.textPrimary,
-                  fontSize:   36,
+                  color: AppColors.textPrimary,
+                  fontSize: 36,
                   fontWeight: FontWeight.w600,
-                  height:     1.0,
+                  height: 1.0,
                 ),
               ),
             ),
@@ -640,17 +597,13 @@ class _OtpDigit extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Shared helpers
-// ─────────────────────────────────────────────
-
 InputDecoration _inputDeco({bool hasError = false, Widget? suffixIcon}) {
   return InputDecoration(
-    filled:    true,
+    filled: true,
     fillColor: AppColors.surfaceLight,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
-      borderSide:   BorderSide.none,
+      borderSide: BorderSide.none,
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
@@ -677,7 +630,7 @@ Widget _eyeIcon({required bool obscure, required VoidCallback onToggle}) {
     child: Icon(
       obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
       color: AppColors.textMuted,
-      size:  20,
+      size: 20,
     ),
   );
 }

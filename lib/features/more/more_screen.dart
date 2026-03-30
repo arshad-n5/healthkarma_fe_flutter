@@ -1,12 +1,6 @@
-// lib/features/more/more_screen.dart
-
 import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
-
-// ─────────────────────────────────────────────
-//  Data model
-// ─────────────────────────────────────────────
 
 class _MoreItem {
   final String imagePath;
@@ -19,10 +13,6 @@ class _MoreItem {
     this.onTap,
   });
 }
-
-// ─────────────────────────────────────────────
-//  MoreBody — used by HomeScreen IndexedStack (index 4)
-// ─────────────────────────────────────────────
 
 class MoreBody extends StatelessWidget {
   const MoreBody({super.key});
@@ -66,7 +56,6 @@ class MoreBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(children: [
-        // ── Header ──────────────────────────
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
           child: Center(
@@ -77,8 +66,6 @@ class MoreBody extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-
-        // ── Grid ────────────────────────────
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -99,10 +86,6 @@ class MoreBody extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Card widget
-// ─────────────────────────────────────────────
 
 class _MoreCard extends StatelessWidget {
   final _MoreItem item;
@@ -139,7 +122,6 @@ class _MoreCard extends StatelessWidget {
             const Spacer(
               flex: 1,
             ),
-
             Text(
               item.label,
               style: TextStyle(
@@ -151,7 +133,6 @@ class _MoreCard extends StatelessWidget {
               overflow: TextOverflow.clip,
               softWrap: false,
             ),
-            // const Spacer(flex: 1,),
           ],
         ),
       ),

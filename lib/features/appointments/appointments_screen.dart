@@ -1,12 +1,6 @@
-// lib/features/appointments/appointments_screen.dart
-
 import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
-
-// ─────────────────────────────────────────────
-//  Data models
-// ─────────────────────────────────────────────
 
 class _UpcomingAppt {
   final String title;
@@ -74,10 +68,6 @@ class _CancelledAppt {
   });
 }
 
-// ─────────────────────────────────────────────
-//  Static data
-// ─────────────────────────────────────────────
-
 const _upcomingAppts = [
   _UpcomingAppt(
     title: 'Pulmonology Check-Up',
@@ -90,7 +80,8 @@ const _upcomingAppts = [
     appointmentType: 'Video Consultation (15 min)',
     isVideo: true,
     lifestyleRisks: 'Chain Smoker, Alcoholic',
-    allergies: 'Peanuts, Medication allergies, Shellfish, Pollen, Animal dander',
+    allergies:
+        'Peanuts, Medication allergies, Shellfish, Pollen, Animal dander',
   ),
 ];
 
@@ -144,10 +135,6 @@ const _cancelledAppts = [
   ),
 ];
 
-// ─────────────────────────────────────────────
-//  AppointmentsBody — used by HomeScreen IndexedStack (index 2)
-// ─────────────────────────────────────────────
-
 class AppointmentsBody extends StatefulWidget {
   const AppointmentsBody({super.key});
 
@@ -181,8 +168,8 @@ class _AppointmentsBodyState extends State<AppointmentsBody>
           child: Row(children: [
             const Spacer(),
             Text('Appointments',
-                style: AppTextStyles.h6SB
-                    .copyWith(color: AppColors.textPrimary)),
+                style:
+                    AppTextStyles.h6SB.copyWith(color: AppColors.textPrimary)),
             const Spacer(),
             Container(
               width: 36,
@@ -191,8 +178,7 @@ class _AppointmentsBodyState extends State<AppointmentsBody>
                 border: Border.all(color: AppColors.primary, width: 1.5),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child:
-                  const Icon(Icons.add, color: AppColors.primary, size: 20),
+              child: const Icon(Icons.add, color: AppColors.primary, size: 20),
             ),
           ]),
         ),
@@ -231,10 +217,6 @@ class _AppointmentsBodyState extends State<AppointmentsBody>
   }
 }
 
-// ─────────────────────────────────────────────
-//  AppointmentsScreen — standalone Scaffold
-// ─────────────────────────────────────────────
-
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({super.key});
 
@@ -267,10 +249,6 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Upcoming tab
-// ─────────────────────────────────────────────
 
 class _UpcomingTab extends StatefulWidget {
   const _UpcomingTab();
@@ -322,8 +300,7 @@ class _UpcomingCard extends StatelessWidget {
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-            color: AppColors.surfaceBorder.withValues(alpha: 0.4),
-            width: 0.5),
+            color: AppColors.surfaceBorder.withValues(alpha: 0.4), width: 0.5),
       ),
       child: isExpanded
           ? _ExpandedBody(appt: appt, onToggle: onToggle)
@@ -344,8 +321,7 @@ class _CollapsedHeader extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(appt.title,
-            style:
-                AppTextStyles.t1SB.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t1SB.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 10),
         Row(children: [
           const Icon(Icons.calendar_today_outlined,
@@ -359,8 +335,8 @@ class _CollapsedHeader extends StatelessWidget {
               size: 14, color: AppColors.textSecondary),
           const SizedBox(width: 6),
           Text(appt.time,
-              style: AppTextStyles.t4R
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         ]),
         const SizedBox(height: 14),
         Row(children: [
@@ -369,8 +345,7 @@ class _CollapsedHeader extends StatelessWidget {
           GestureDetector(
             onTap: onToggle,
             child: Text('View Details',
-                style:
-                    AppTextStyles.t4R.copyWith(color: AppColors.primary)),
+                style: AppTextStyles.t4R.copyWith(color: AppColors.primary)),
           ),
         ]),
       ]),
@@ -419,34 +394,30 @@ class _ExpandedBody extends StatelessWidget {
                 size: 14, color: AppColors.textSecondary),
             const SizedBox(width: 6),
             Text(appt.time,
-                style: AppTextStyles.t4R
-                    .copyWith(color: AppColors.textSecondary)),
+                style:
+                    AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
           ]),
         ),
         const SizedBox(height: 14),
         Text(appt.title,
-            style:
-                AppTextStyles.t1SB.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t1SB.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 8),
         Text('Provider',
-            style:
-                AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
+            style: AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Row(children: [
           Text(appt.providerName,
-              style:
-                  AppTextStyles.t3SB.copyWith(color: AppColors.textPrimary)),
+              style: AppTextStyles.t3SB.copyWith(color: AppColors.textPrimary)),
           const SizedBox(width: 8),
           Container(width: 1, height: 14, color: AppColors.surfaceBorder),
           const SizedBox(width: 8),
           Text(appt.providerSpecialty,
-              style: AppTextStyles.t3R
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.t3R.copyWith(color: AppColors.textSecondary)),
         ]),
         const SizedBox(height: 12),
         Text('Appointment Type',
-            style:
-                AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
+            style: AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         const SizedBox(height: 6),
         Row(children: [
           Container(
@@ -456,13 +427,11 @@ class _ExpandedBody extends StatelessWidget {
               color: Colors.red.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(6),
             ),
-            child:
-                const Icon(Icons.videocam, color: Colors.white, size: 16),
+            child: const Icon(Icons.videocam, color: Colors.white, size: 16),
           ),
           const SizedBox(width: 10),
           Text(appt.appointmentType,
-              style:
-                  AppTextStyles.t3R.copyWith(color: AppColors.textPrimary)),
+              style: AppTextStyles.t3R.copyWith(color: AppColors.textPrimary)),
         ]),
         const SizedBox(height: 14),
         Divider(
@@ -472,25 +441,22 @@ class _ExpandedBody extends StatelessWidget {
         const SizedBox(height: 14),
         Row(children: [
           Text('Lifestyle and Risk Factors',
-              style: AppTextStyles.t4R
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
           const Spacer(),
           Text('Edit',
-              style: AppTextStyles.t4R
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         ]),
         const SizedBox(height: 4),
         Text(appt.lifestyleRisks,
-            style:
-                AppTextStyles.t3R.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t3R.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 10),
         Text('Allergies',
-            style:
-                AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
+            style: AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Text(appt.allergies,
-            style:
-                AppTextStyles.t3R.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t3R.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 14),
         Divider(
             height: 1,
@@ -503,15 +469,13 @@ class _ExpandedBody extends StatelessWidget {
           GestureDetector(
             onTap: () {},
             child: Text('Reschedule',
-                style: AppTextStyles.t4R
-                    .copyWith(color: AppColors.primary)),
+                style: AppTextStyles.t4R.copyWith(color: AppColors.primary)),
           ),
           const SizedBox(width: 16),
           GestureDetector(
             onTap: () {},
             child: Text('Cancel',
-                style: AppTextStyles.t4R
-                    .copyWith(color: AppColors.primary)),
+                style: AppTextStyles.t4R.copyWith(color: AppColors.primary)),
           ),
           const Spacer(),
           GestureDetector(
@@ -540,16 +504,11 @@ class _JoinButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text('Join',
-            style:
-                AppTextStyles.t4M.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t4M.copyWith(color: AppColors.textPrimary)),
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Past tab
-// ─────────────────────────────────────────────
 
 class _PastTab extends StatefulWidget {
   const _PastTab();
@@ -623,17 +582,15 @@ class _PastTabState extends State<_PastTab> {
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
                 controller: _searchCtrl,
-                style: AppTextStyles.t4R
-                    .copyWith(color: AppColors.textPrimary),
+                style: AppTextStyles.t4R.copyWith(color: AppColors.textPrimary),
                 decoration: InputDecoration(
                   hintText: 'Search',
-                  hintStyle: AppTextStyles.t4R
-                      .copyWith(color: AppColors.textMuted),
+                  hintStyle:
+                      AppTextStyles.t4R.copyWith(color: AppColors.textMuted),
                   prefixIcon: const Icon(Icons.search,
                       color: AppColors.textMuted, size: 18),
                   border: InputBorder.none,
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 10),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
                 ),
               ),
             ),
@@ -645,8 +602,7 @@ class _PastTabState extends State<_PastTab> {
                 context: context,
                 isScrollControlled: true,
                 backgroundColor: Colors.transparent,
-                builder: (_) =>
-                    _ApptFilterSheet(initialFilter: _filter),
+                builder: (_) => _ApptFilterSheet(initialFilter: _filter),
               );
               if (result != null) setState(() => _filter = result);
             },
@@ -655,8 +611,7 @@ class _PastTabState extends State<_PastTab> {
               children: [
                 Container(
                   height: 40,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14),
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
                   decoration: BoxDecoration(
                     color: _filterCount > 0
                         ? AppColors.primary.withValues(alpha: 0.15)
@@ -664,21 +619,18 @@ class _PastTabState extends State<_PastTab> {
                     borderRadius: BorderRadius.circular(10),
                     border: _filterCount > 0
                         ? Border.all(
-                            color: AppColors.primary
-                                .withValues(alpha: 0.4),
+                            color: AppColors.primary.withValues(alpha: 0.4),
                             width: 1)
                         : null,
                   ),
-                  child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.filter_list_rounded,
-                            color: AppColors.primary, size: 16),
-                        const SizedBox(width: 6),
-                        Text('Filter',
-                            style: AppTextStyles.t4M.copyWith(
-                                color: AppColors.textPrimary)),
-                      ]),
+                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                    Icon(Icons.filter_list_rounded,
+                        color: AppColors.primary, size: 16),
+                    const SizedBox(width: 6),
+                    Text('Filter',
+                        style: AppTextStyles.t4M
+                            .copyWith(color: AppColors.textPrimary)),
+                  ]),
                 ),
                 if (_filterCount > 0)
                   Positioned(
@@ -688,8 +640,7 @@ class _PastTabState extends State<_PastTab> {
                       width: 18,
                       height: 18,
                       decoration: const BoxDecoration(
-                          color: AppColors.primary,
-                          shape: BoxShape.circle),
+                          color: AppColors.primary, shape: BoxShape.circle),
                       child: Center(
                         child: Text('$_filterCount',
                             style: const TextStyle(
@@ -707,27 +658,23 @@ class _PastTabState extends State<_PastTab> {
       Expanded(
         child: results.isEmpty
             ? Center(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                    const Icon(Icons.search_off_rounded,
-                        size: 48, color: AppColors.textMuted),
-                    const SizedBox(height: 16),
-                    Text('No appointments found',
-                        style: AppTextStyles.t2SB
-                            .copyWith(color: AppColors.textPrimary)),
-                    const SizedBox(height: 8),
-                    Text('Try adjusting your search or filters',
-                        style: AppTextStyles.t4R.copyWith(
-                            color: AppColors.textSecondary)),
-                  ]))
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                const Icon(Icons.search_off_rounded,
+                    size: 48, color: AppColors.textMuted),
+                const SizedBox(height: 16),
+                Text('No appointments found',
+                    style: AppTextStyles.t2SB
+                        .copyWith(color: AppColors.textPrimary)),
+                const SizedBox(height: 8),
+                Text('Try adjusting your search or filters',
+                    style: AppTextStyles.t4R
+                        .copyWith(color: AppColors.textSecondary)),
+              ]))
             : ListView.separated(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
                 itemCount: results.length,
-                separatorBuilder: (_, __) =>
-                    const SizedBox(height: 12),
-                itemBuilder: (_, i) =>
-                    _PastApptCard(appt: results[i]),
+                separatorBuilder: (_, __) => const SizedBox(height: 12),
+                itemBuilder: (_, i) => _PastApptCard(appt: results[i]),
               ),
       ),
     ]);
@@ -746,29 +693,24 @@ class _PastApptCard extends StatelessWidget {
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-            color: AppColors.surfaceBorder.withValues(alpha: 0.4),
-            width: 0.5),
+            color: AppColors.surfaceBorder.withValues(alpha: 0.4), width: 0.5),
       ),
-      child:
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(appt.date,
-            style: AppTextStyles.t4R
-                .copyWith(color: AppColors.textSecondary)),
+            style: AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         const SizedBox(height: 6),
         Text(appt.title,
-            style:
-                AppTextStyles.t1SB.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t1SB.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 10),
         Row(children: [
           const Icon(Icons.person_outline,
               size: 15, color: AppColors.textSecondary),
           const SizedBox(width: 6),
           Text(appt.doctorName,
-              style: AppTextStyles.t4R
-                  .copyWith(color: AppColors.textPrimary)),
+              style: AppTextStyles.t4R.copyWith(color: AppColors.textPrimary)),
           Text(' - ${appt.specialty}',
-              style: AppTextStyles.t4R
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         ]),
         const SizedBox(height: 6),
         Row(children: [
@@ -782,18 +724,16 @@ class _PastApptCard extends StatelessWidget {
           const SizedBox(width: 6),
           Expanded(
             child: Text(appt.location,
-                style: AppTextStyles.t4R
-                    .copyWith(color: AppColors.textSecondary)),
+                style:
+                    AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
           ),
         ]),
         const SizedBox(height: 10),
         Text('Outcome:',
-            style: AppTextStyles.t4R
-                .copyWith(color: AppColors.textSecondary)),
+            style: AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         const SizedBox(height: 2),
         Text(appt.outcome,
-            style: AppTextStyles.t4R
-                .copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t4R.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 12),
         Divider(
             height: 1,
@@ -814,10 +754,6 @@ class _PastApptCard extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Cancelled tab
-// ─────────────────────────────────────────────
-
 class _CancelledTab extends StatelessWidget {
   const _CancelledTab();
 
@@ -830,8 +766,7 @@ class _CancelledTab extends StatelessWidget {
               size: 48, color: AppColors.textMuted),
           const SizedBox(height: 16),
           Text('No cancelled appointments',
-              style: AppTextStyles.t2SB
-                  .copyWith(color: AppColors.textPrimary)),
+              style: AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
         ]),
       );
     }
@@ -839,8 +774,7 @@ class _CancelledTab extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
       itemCount: _cancelledAppts.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
-      itemBuilder: (_, i) =>
-          _CancelledApptCard(appt: _cancelledAppts[i]),
+      itemBuilder: (_, i) => _CancelledApptCard(appt: _cancelledAppts[i]),
     );
   }
 }
@@ -857,29 +791,24 @@ class _CancelledApptCard extends StatelessWidget {
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-            color: AppColors.surfaceBorder.withValues(alpha: 0.4),
-            width: 0.5),
+            color: AppColors.surfaceBorder.withValues(alpha: 0.4), width: 0.5),
       ),
-      child:
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(appt.date,
-            style: AppTextStyles.t4R
-                .copyWith(color: AppColors.textSecondary)),
+            style: AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         const SizedBox(height: 6),
         Text(appt.title,
-            style:
-                AppTextStyles.t1SB.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t1SB.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 10),
         Row(children: [
           const Icon(Icons.person_outline,
               size: 15, color: AppColors.textSecondary),
           const SizedBox(width: 6),
           Text(appt.doctorName,
-              style: AppTextStyles.t4R
-                  .copyWith(color: AppColors.textPrimary)),
+              style: AppTextStyles.t4R.copyWith(color: AppColors.textPrimary)),
           Text(' - ${appt.specialty}',
-              style: AppTextStyles.t4R
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
         ]),
         const SizedBox(height: 8),
         Row(children: [
@@ -894,18 +823,14 @@ class _CancelledApptCard extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Text(appt.reason,
-                style: AppTextStyles.t4R
-                    .copyWith(color: AppColors.textSecondary)),
+                style:
+                    AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
           ),
         ]),
       ]),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Filter model
-// ─────────────────────────────────────────────
 
 class _ApptFilter {
   final Set<String> specialties;
@@ -918,10 +843,6 @@ class _ApptFilter {
     this.dateRanges = const {},
   });
 }
-
-// ─────────────────────────────────────────────
-//  Filter bottom sheet
-// ─────────────────────────────────────────────
 
 class _ApptFilterSheet extends StatefulWidget {
   final _ApptFilter initialFilter;
@@ -937,12 +858,17 @@ class _ApptFilterSheetState extends State<_ApptFilterSheet> {
   late Set<String> _dateRanges;
 
   static const _specialtyOptions = [
-    'Pulmonologist', 'Allergist', 'Cardiologist',
-    'Dermatologist', 'General Practitioner',
+    'Pulmonologist',
+    'Allergist',
+    'Cardiologist',
+    'Dermatologist',
+    'General Practitioner',
   ];
   static const _visitTypeOptions = ['Telehealth', 'In-Person'];
   static const _dateRangeOptions = [
-    'Last 3 months', 'Last 6 months', 'Last 12 months',
+    'Last 3 months',
+    'Last 6 months',
+    'Last 12 months',
   ];
 
   @override
@@ -962,8 +888,8 @@ class _ApptFilterSheetState extends State<_ApptFilterSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.85),
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
       decoration: const BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -981,8 +907,8 @@ class _ApptFilterSheetState extends State<_ApptFilterSheet> {
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
           child: Row(children: [
             Text('Filter',
-                style: AppTextStyles.h6SB
-                    .copyWith(color: AppColors.textPrimary)),
+                style:
+                    AppTextStyles.h6SB.copyWith(color: AppColors.textPrimary)),
             const Spacer(),
             GestureDetector(
               onTap: () => Navigator.pop(context),
@@ -990,8 +916,7 @@ class _ApptFilterSheetState extends State<_ApptFilterSheet> {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                    color: AppColors.surfaceLight,
-                    shape: BoxShape.circle),
+                    color: AppColors.surfaceLight, shape: BoxShape.circle),
                 child: const Icon(Icons.close,
                     color: AppColors.textPrimary, size: 16),
               ),
@@ -1001,49 +926,45 @@ class _ApptFilterSheetState extends State<_ApptFilterSheet> {
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: _reset,
-                      child: Text('Reset',
-                          style: AppTextStyles.t3R
-                              .copyWith(color: AppColors.primary)),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _FilterSection(
-                    title: 'Specialty',
-                    options: _specialtyOptions,
-                    selected: _specialties,
-                    onToggle: (v) => setState(() =>
-                        _specialties.contains(v)
-                            ? _specialties.remove(v)
-                            : _specialties.add(v)),
-                  ),
-                  _divider(),
-                  _FilterSection(
-                    title: 'Visit Type',
-                    options: _visitTypeOptions,
-                    selected: _visitTypes,
-                    onToggle: (v) => setState(() =>
-                        _visitTypes.contains(v)
-                            ? _visitTypes.remove(v)
-                            : _visitTypes.add(v)),
-                  ),
-                  _divider(),
-                  _FilterSection(
-                    title: 'Date Range',
-                    options: _dateRangeOptions,
-                    selected: _dateRanges,
-                    onToggle: (v) => setState(() =>
-                        _dateRanges.contains(v)
-                            ? _dateRanges.remove(v)
-                            : _dateRanges.add(v)),
-                  ),
-                ]),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: _reset,
+                  child: Text('Reset',
+                      style:
+                          AppTextStyles.t3R.copyWith(color: AppColors.primary)),
+                ),
+              ),
+              const SizedBox(height: 8),
+              _FilterSection(
+                title: 'Specialty',
+                options: _specialtyOptions,
+                selected: _specialties,
+                onToggle: (v) => setState(() => _specialties.contains(v)
+                    ? _specialties.remove(v)
+                    : _specialties.add(v)),
+              ),
+              _divider(),
+              _FilterSection(
+                title: 'Visit Type',
+                options: _visitTypeOptions,
+                selected: _visitTypes,
+                onToggle: (v) => setState(() => _visitTypes.contains(v)
+                    ? _visitTypes.remove(v)
+                    : _visitTypes.add(v)),
+              ),
+              _divider(),
+              _FilterSection(
+                title: 'Date Range',
+                options: _dateRangeOptions,
+                selected: _dateRanges,
+                onToggle: (v) => setState(() => _dateRanges.contains(v)
+                    ? _dateRanges.remove(v)
+                    : _dateRanges.add(v)),
+              ),
+            ]),
           ),
         ),
         Padding(
@@ -1067,8 +988,8 @@ class _ApptFilterSheetState extends State<_ApptFilterSheet> {
                     borderRadius: BorderRadius.circular(14)),
               ),
               child: Text('Apply',
-                  style: AppTextStyles.t2SB
-                      .copyWith(color: AppColors.white100)),
+                  style:
+                      AppTextStyles.t2SB.copyWith(color: AppColors.white100)),
             ),
           ),
         ),
@@ -1084,10 +1005,6 @@ class _ApptFilterSheetState extends State<_ApptFilterSheet> {
             color: AppColors.surfaceBorder.withValues(alpha: 0.5)),
       );
 }
-
-// ─────────────────────────────────────────────
-//  Shared filter chip section
-// ─────────────────────────────────────────────
 
 class _FilterSection extends StatelessWidget {
   final String title;
@@ -1106,8 +1023,7 @@ class _FilterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(title,
-          style:
-              AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
+          style: AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
       const SizedBox(height: 12),
       Wrap(
         spacing: 8,
@@ -1119,33 +1035,26 @@ class _FilterSection extends StatelessWidget {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 180),
               curve: Curves.easeInOut,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 14, vertical: 9),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
               decoration: BoxDecoration(
-                color: isSel
-                    ? const Color(0xFF0D1017)
-                    : const Color(0xFF1E2330),
+                color:
+                    isSel ? const Color(0xFF0D1017) : const Color(0xFF1E2330),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: isSel
-                      ? AppColors.white100
-                      : AppColors.surfaceBorder,
+                  color: isSel ? AppColors.white100 : AppColors.surfaceBorder,
                   width: isSel ? 1.5 : 1.0,
                 ),
               ),
               child: Row(mainAxisSize: MainAxisSize.min, children: [
                 if (isSel) ...[
-                  const Icon(Icons.check,
-                      color: AppColors.white100, size: 13),
+                  const Icon(Icons.check, color: AppColors.white100, size: 13),
                   const SizedBox(width: 5),
                 ],
                 Text(o,
                     style: AppTextStyles.t4R.copyWith(
-                      color: isSel
-                          ? AppColors.white100
-                          : AppColors.textSecondary,
-                      fontWeight:
-                          isSel ? FontWeight.w600 : FontWeight.w400,
+                      color:
+                          isSel ? AppColors.white100 : AppColors.textSecondary,
+                      fontWeight: isSel ? FontWeight.w600 : FontWeight.w400,
                     )),
               ]),
             ),

@@ -1,18 +1,7 @@
-// lib/features/auth/terms_screen.dart
-//
-// Terms & Conditions — Consent & Confirmations
-// 3 checkboxes, each with a "Know more" link that opens
-// a scrollable bottom sheet with the full Payment Consent text.
-// Continue activates only when all 3 are checked.
-
 import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
 import '../../routes/app_routes.dart';
-
-// ─────────────────────────────────────────────
-//  Consent items
-// ─────────────────────────────────────────────
 
 class _ConsentItem {
   final String text;
@@ -31,7 +20,8 @@ const _items = [
   ),
 ];
 
-const _paymentConsentText = '''Thank you for choosing our services for your needs. Please read the agreement below. It lays out billing, scheduling, and cancellation procedures. If you have any questions please ask for clarification.
+const _paymentConsentText =
+    '''Thank you for choosing our services for your needs. Please read the agreement below. It lays out billing, scheduling, and cancellation procedures. If you have any questions please ask for clarification.
 
 Payment of all fees is expected at the time of service or via credit card on file. We will assist you in submitting claims to your insurance carrier.
 
@@ -65,15 +55,14 @@ class _TermsScreenState extends State<TermsScreen> {
 
   bool get _allChecked => _checked.every((c) => c);
 
-  void _toggle(int i) =>
-      setState(() => _checked[i] = !_checked[i]);
+  void _toggle(int i) => setState(() => _checked[i] = !_checked[i]);
 
   void _showKnowMore(int index) {
     showModalBottomSheet(
-      context:           context,
+      context: context,
       isScrollControlled: true,
-      backgroundColor:   Colors.transparent,
-      builder:           (_) => _PaymentConsentSheet(
+      backgroundColor: Colors.transparent,
+      builder: (_) => _PaymentConsentSheet(
         onAgree: () {
           Navigator.pop(context);
           setState(() => _checked[index] = true);
@@ -84,8 +73,7 @@ class _TermsScreenState extends State<TermsScreen> {
 
   void _onContinue() {
     if (!_allChecked) return;
-    Navigator.pushNamedAndRemoveUntil(
-        context, AppRoutes.home, (r) => false);
+    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (r) => false);
   }
 
   @override
@@ -112,9 +100,9 @@ class _TermsScreenState extends State<TermsScreen> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 28),
                         child: _ConsentRow(
-                          text:      _items[i].text,
-                          checked:   _checked[i],
-                          onToggle:  () => _toggle(i),
+                          text: _items[i].text,
+                          checked: _checked[i],
+                          onToggle: () => _toggle(i),
                           onKnowMore: () => _showKnowMore(i),
                         ),
                       );
@@ -130,7 +118,7 @@ class _TermsScreenState extends State<TermsScreen> {
                   24, 0, 24, MediaQuery.of(context).padding.bottom + 20),
               child: _ContinueButton(
                 active: _allChecked,
-                onTap:  _onContinue,
+                onTap: _onContinue,
               ),
             ),
           ],
@@ -145,8 +133,8 @@ class _TermsScreenState extends State<TermsScreen> {
 // ─────────────────────────────────────────────
 
 class _ConsentRow extends StatelessWidget {
-  final String       text;
-  final bool         checked;
+  final String text;
+  final bool checked;
   final VoidCallback onToggle;
   final VoidCallback onKnowMore;
 
@@ -167,7 +155,8 @@ class _ConsentRow extends StatelessWidget {
           onTap: onToggle,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 180),
-            width:  22, height: 22,
+            width: 22,
+            height: 22,
             margin: const EdgeInsets.only(top: 2),
             decoration: BoxDecoration(
               color: checked ? AppColors.primary : Colors.transparent,
@@ -178,8 +167,7 @@ class _ConsentRow extends StatelessWidget {
               ),
             ),
             child: checked
-                ? const Icon(Icons.check,
-                    color: AppColors.white100, size: 14)
+                ? const Icon(Icons.check, color: AppColors.white100, size: 14)
                 : null,
           ),
         ),
@@ -191,14 +179,14 @@ class _ConsentRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(text,
-                  style: AppTextStyles.t2R
-                      .copyWith(color: AppColors.textPrimary)),
+                  style:
+                      AppTextStyles.t2R.copyWith(color: AppColors.textPrimary)),
               const SizedBox(height: 6),
               GestureDetector(
                 onTap: onKnowMore,
                 child: Text('Know more',
                     style: AppTextStyles.t2R.copyWith(
-                      color:     AppColors.primary,
+                      color: AppColors.primary,
                       decoration: TextDecoration.underline,
                       decorationColor: AppColors.primary,
                     )),
@@ -226,7 +214,7 @@ class _PaymentConsentSheet extends StatelessWidget {
     return Container(
       constraints: BoxConstraints(maxHeight: maxH),
       decoration: const BoxDecoration(
-        color:        AppColors.surface,
+        color: AppColors.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
@@ -276,7 +264,7 @@ class _PaymentConsentSheet extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(
                 20, 20, 20, MediaQuery.of(context).padding.bottom + 20),
             child: SizedBox(
-              width:  double.infinity,
+              width: double.infinity,
               height: 52,
               child: ElevatedButton(
                 onPressed: onAgree,
@@ -286,8 +274,8 @@ class _PaymentConsentSheet extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14)),
                 ),
                 child: Text('I agree',
-                    style: AppTextStyles.t2SB
-                        .copyWith(color: AppColors.white100)),
+                    style:
+                        AppTextStyles.t2SB.copyWith(color: AppColors.white100)),
               ),
             ),
           ),
@@ -302,7 +290,7 @@ class _PaymentConsentSheet extends StatelessWidget {
 // ─────────────────────────────────────────────
 
 class _ContinueButton extends StatelessWidget {
-  final bool         active;
+  final bool active;
   final VoidCallback onTap;
   const _ContinueButton({required this.active, required this.onTap});
 
@@ -310,23 +298,21 @@ class _ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      height:   54,
+      height: 54,
       decoration: BoxDecoration(
-        color:        active ? AppColors.primary : AppColors.surfaceLight,
+        color: active ? AppColors.primary : AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Material(
-        color:        Colors.transparent,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(14),
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
-          onTap:        active ? onTap : null,
+          onTap: active ? onTap : null,
           child: Center(
             child: Text('Continue',
                 style: AppTextStyles.t2SB.copyWith(
-                  color: active
-                      ? AppColors.white100
-                      : AppColors.textMuted,
+                  color: active ? AppColors.white100 : AppColors.textMuted,
                 )),
           ),
         ),

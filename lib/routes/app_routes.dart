@@ -1,5 +1,3 @@
-// lib/routes/app_routes.dart
-
 import 'package:flutter/material.dart';
 import '../features/splash/splash_screen.dart';
 import '../features/auth/signin_screen.dart';
@@ -17,37 +15,37 @@ import '../features/more/more_screen.dart' as morelist;
 class AppRoutes {
   AppRoutes._();
 
-  static const String splash          = '/';
-  static const String signin          = '/signin';
-  static const String signup          = '/signup';
-  static const String forgotPassword  = '/forgot-password';
+  static const String splash = '/';
+  static const String signin = '/signin';
+  static const String signup = '/signup';
+  static const String forgotPassword = '/forgot-password';
   static const String otpVerification = '/otp-verification';
-  static const String newPassword     = '/new-password';
+  static const String newPassword = '/new-password';
   static const String passwordSuccess = '/password-success';
-  static const String home            = '/home';
-  static const String createProfile   = '/create-profile';
-  static const String lifestyle       = '/lifestyle';
-  static const String medications     = '/medications';
-  static const String terms           = '/terms';
-  static const String medications2    = '/medications-screen';
-  static const String appointments    = '/appointments';
-  static const String more            = '/more';
+  static const String home = '/home';
+  static const String createProfile = '/create-profile';
+  static const String lifestyle = '/lifestyle';
+  static const String medications = '/medications';
+  static const String terms = '/terms';
+  static const String medications2 = '/medications-screen';
+  static const String appointments = '/appointments';
+  static const String more = '/more';
 
   static Map<String, WidgetBuilder> get routes => {
-        splash:          (_) => const SplashScreen(),
-        signin:          (_) => const SigninScreen(),
-        signup:          (_) => const SignupScreen(),
-        forgotPassword:  (_) => const ForgotPasswordScreen(),
+        splash: (_) => const SplashScreen(),
+        signin: (_) => const SigninScreen(),
+        signup: (_) => const SignupScreen(),
+        forgotPassword: (_) => const ForgotPasswordScreen(),
         otpVerification: (_) => const OtpVerificationScreen(),
-        newPassword:     (_) => const NewPasswordScreen(),
+        newPassword: (_) => const NewPasswordScreen(),
         passwordSuccess: (_) => const PasswordSuccessScreen(),
-        home:            (_) => const HomeScreen(),
-        createProfile:   (_) => const CreateProfileScreen(),
-        lifestyle:       (_) => const LifestyleScreen(),
-        medications:     (_) => const MedicationsScreen(),
-        terms:           (_) => const TermsScreen(),
-        medications2:    (_) => const medlist.MedListScreen(),
-        appointments:    (_) => const apptlist.AppointmentsScreen(),
-        more:            (_) => const morelist.MoreBody(),
+        home: (_) => const HomeScreen(),
+        createProfile: (_) => const CreateProfileScreen(),
+        lifestyle: (_) => const LifestyleScreen(),
+        medications: (_) => const MedicationsScreen(),
+        terms: (_) => const TermsScreen(),
+        medications2: (_) => const medlist.MedListScreen(),
+        appointments: (_) => const apptlist.AppointmentsScreen(),
+        more: (_) => const morelist.MoreBody(),
       };
 }

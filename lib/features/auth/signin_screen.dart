@@ -1,5 +1,3 @@
-// lib/features/auth/signin_screen.dart
-
 import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
@@ -14,13 +12,13 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
-  final _emailController    = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _formKey            = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   bool _obscurePassword = true;
-  bool _emailValid      = true;
-  bool _formFilled      = false;
+  bool _emailValid = true;
+  bool _formFilled = false;
 
   @override
   void initState() {
@@ -37,14 +35,12 @@ class _SigninScreenState extends State<SigninScreen> {
   }
 
   void _onFieldChanged() {
-    final email    = _emailController.text.trim();
+    final email = _emailController.text.trim();
     final password = _passwordController.text;
 
     setState(() {
-      // Button becomes active only when both fields have content
-      // and email looks valid
-      _formFilled = email.isNotEmpty && password.isNotEmpty &&
-          _isValidEmail(email);
+      _formFilled =
+          email.isNotEmpty && password.isNotEmpty && _isValidEmail(email);
     });
   }
 
@@ -60,8 +56,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
   void _onSignIn() {
     if (!_formFilled) return;
-    
-    // TODO: wire up to your auth service
+
     Navigator.pushReplacementNamed(context, AppRoutes.home);
     debugPrint('Sign in tapped');
   }
@@ -83,25 +78,17 @@ class _SigninScreenState extends State<SigninScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 24),
-
-                // ── Top bar: Logo + Sign Up ────────────
                 _TopBar(),
-
                 const SizedBox(height: 72),
-
-                // ── Title ─────────────────────────────
                 Text('Signin', style: AppTextStyles.h1B),
-
                 const SizedBox(height: 32),
-
-                // ── Email field ───────────────────────
                 Text('Email ID', style: AppTextStyles.t4R),
                 const SizedBox(height: 8),
                 _EmailField(
                   controller: _emailController,
-                  isValid:    _emailValid,
-                  onUnfocus:  _onEmailUnfocus,
-                  onChanged:  (_) => setState(() => _emailValid = true),
+                  isValid: _emailValid,
+                  onUnfocus: _onEmailUnfocus,
+                  onChanged: (_) => setState(() => _emailValid = true),
                 ),
                 if (!_emailValid) ...[
                   const SizedBox(height: 6),
@@ -112,22 +99,16 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
                   ),
                 ],
-
                 const SizedBox(height: 20),
-
-                // ── Password field ────────────────────
                 Text('Password', style: AppTextStyles.t4R),
                 const SizedBox(height: 8),
                 _PasswordField(
-                  controller:      _passwordController,
-                  obscure:         _obscurePassword,
+                  controller: _passwordController,
+                  obscure: _obscurePassword,
                   onToggleObscure: () =>
                       setState(() => _obscurePassword = !_obscurePassword),
                 ),
-
                 const SizedBox(height: 12),
-
-                // ── Forgot password ───────────────────
                 GestureDetector(
                   onTap: _onForgotPassword,
                   child: Text(
@@ -137,30 +118,17 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 28),
-
-                // ── Sign in button ────────────────────
                 _SignInButton(
-                  active:  _formFilled,
-                  onTap:   _onSignIn,
+                  active: _formFilled,
+                  onTap: _onSignIn,
                 ),
-
                 const SizedBox(height: 40),
-
-                // ── Terms ─────────────────────────────
                 _TermsText(),
-
                 const SizedBox(height: 20),
-
-                // ── Emergency pill ────────────────────
                 Center(child: _EmergencyPill()),
-
                 const SizedBox(height: 28),
-
-                // ── Face detect ───────────────────────
                 Center(child: _FaceDetect()),
-
                 const SizedBox(height: 32),
               ],
             ),
@@ -170,10 +138,6 @@ class _SigninScreenState extends State<SigninScreen> {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Top bar
-// ─────────────────────────────────────────────
 
 class _TopBar extends StatelessWidget {
   @override
@@ -193,10 +157,6 @@ class _TopBar extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Email field
-// ─────────────────────────────────────────────
 
 class _EmailField extends StatelessWidget {
   final TextEditingController controller;
@@ -218,16 +178,16 @@ class _EmailField extends StatelessWidget {
         if (!hasFocus) onUnfocus();
       },
       child: TextField(
-        controller:   controller,
-        onChanged:    onChanged,
+        controller: controller,
+        onChanged: onChanged,
         keyboardType: TextInputType.emailAddress,
-        style:        AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
+        style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
         decoration: InputDecoration(
-          filled:      true,
-          fillColor:   AppColors.surfaceLight,
+          filled: true,
+          fillColor: AppColors.surfaceLight,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide:   BorderSide.none,
+            borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -244,17 +204,14 @@ class _EmailField extends StatelessWidget {
             ),
           ),
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: 14, vertical: 14,
+            horizontal: 14,
+            vertical: 14,
           ),
         ),
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Password field
-// ─────────────────────────────────────────────
 
 class _PasswordField extends StatelessWidget {
   final TextEditingController controller;
@@ -270,39 +227,36 @@ class _PasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller:     controller,
-      obscureText:    obscure,
+      controller: controller,
+      obscureText: obscure,
       style: AppTextStyles.t2R.copyWith(color: AppColors.textPrimary),
       decoration: InputDecoration(
-        filled:    true,
+        filled: true,
         fillColor: AppColors.surfaceLight,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide:   BorderSide.none,
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 14, vertical: 14,
+          horizontal: 14,
+          vertical: 14,
         ),
         suffixIcon: GestureDetector(
           onTap: onToggleObscure,
           child: Icon(
             obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
             color: AppColors.textMuted,
-            size:  20,
+            size: 20,
           ),
         ),
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Sign in button — grey when inactive, purple when active
-// ─────────────────────────────────────────────
 
 class _SignInButton extends StatelessWidget {
   final bool active;
@@ -314,18 +268,18 @@ class _SignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
-      width:    double.infinity,
-      height:   52,
+      width: double.infinity,
+      height: 52,
       decoration: BoxDecoration(
-        color:        active ? AppColors.primary : AppColors.surfaceLight,
+        color: active ? AppColors.primary : AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Material(
-        color:        Colors.transparent,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap:        active ? onTap : null,
+          onTap: active ? onTap : null,
           child: Center(
             child: Text(
               'Sign in',
@@ -340,10 +294,6 @@ class _SignInButton extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Terms text
-// ─────────────────────────────────────────────
-
 class _TermsText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -355,12 +305,12 @@ class _TermsText extends StatelessWidget {
           children: [
             const TextSpan(text: 'By continuing, you agree to our\n'),
             TextSpan(
-              text:  'Terms of Service',
+              text: 'Terms of Service',
               style: AppTextStyles.t5M.copyWith(color: AppColors.primary),
             ),
             const TextSpan(text: ' and '),
             TextSpan(
-              text:  'Privacy Policy',
+              text: 'Privacy Policy',
               style: AppTextStyles.t5M.copyWith(color: AppColors.primary),
             ),
           ],
@@ -370,17 +320,13 @@ class _TermsText extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Emergency pill
-// ─────────────────────────────────────────────
-
 class _EmergencyPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color:        AppColors.surfaceLight,
+        color: AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.surfaceBorder, width: 1),
       ),
@@ -390,7 +336,7 @@ class _EmergencyPill extends StatelessWidget {
           children: [
             const TextSpan(text: 'In case of emergency, '),
             TextSpan(
-              text:  'Call 911',
+              text: 'Call 911',
               style: AppTextStyles.t5SB.copyWith(color: AppColors.alertRed),
             ),
           ],
@@ -399,10 +345,6 @@ class _EmergencyPill extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Face detect row
-// ─────────────────────────────────────────────
 
 class _FaceDetect extends StatelessWidget {
   @override
@@ -413,7 +355,7 @@ class _FaceDetect extends StatelessWidget {
         Icon(
           Icons.face_retouching_natural_outlined,
           color: AppColors.primary,
-          size:  22,
+          size: 22,
         ),
         const SizedBox(width: 8),
         Text(

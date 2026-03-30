@@ -1,7 +1,3 @@
-// lib/features/splash/splash_screen.dart
-//
-// The 3-slide onboarding screen shown on first launch.
-
 import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
@@ -69,21 +65,21 @@ class _SplashScreenState extends State<SplashScreen>
           children: [
             // ── Slides ─────────────────────────────
             PageView.builder(
-              controller:    _pageController,
-              itemCount:     slides.length,
+              controller: _pageController,
+              itemCount: slides.length,
               onPageChanged: _onPageChanged,
-              itemBuilder:   (context, index) => _SlidePage(
-                title:         slides[index]['title']!,
-                description:   slides[index]['description']!,
+              itemBuilder: (context, index) => _SlidePage(
+                title: slides[index]['title']!,
+                description: slides[index]['description']!,
                 fadeAnimation: _fadeAnimation,
               ),
             ),
 
-            // ── Bottom bar — respects home bar ─────
+            //Bottom bar
             Positioned(
               bottom: bottomPadding + 24,
-              left:   28,
-              right:  28,
+              left: 28,
+              right: 28,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,19 +90,20 @@ class _SplashScreenState extends State<SplashScreen>
                       final bool active = i == _currentPage;
                       return AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
-                        curve:    Curves.easeInOut,
-                        margin:   const EdgeInsets.only(right: 6),
-                        width:    active ? 28 : 10,
-                        height:   4,
+                        curve: Curves.easeInOut,
+                        margin: const EdgeInsets.only(right: 6),
+                        width: active ? 28 : 10,
+                        height: 4,
                         decoration: BoxDecoration(
-                          color:        active ? AppColors.primary : AppColors.dotInactive,
+                          color: active
+                              ? AppColors.primary
+                              : AppColors.dotInactive,
                           borderRadius: BorderRadius.circular(2),
                         ),
                       );
                     }),
                   ),
 
-                  // Skip
                   GestureDetector(
                     onTap: _skip,
                     child: Text(AppStrings.skip, style: AppTextStyles.t4R),
@@ -120,8 +117,6 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
-
-// ── Single slide ────────────────────────────────
 
 class _SlidePage extends StatelessWidget {
   final String title;
@@ -141,13 +136,10 @@ class _SlidePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Logo centred in upper half
           Expanded(
             flex: 5,
             child: Center(child: const AppLogo()),
           ),
-
-          // Title + description fade in on page change
           Expanded(
             flex: 4,
             child: FadeTransition(
@@ -162,8 +154,6 @@ class _SlidePage extends StatelessWidget {
               ),
             ),
           ),
-
-          // Space so content doesn't sit behind bottom bar
           const SizedBox(height: 80),
         ],
       ),

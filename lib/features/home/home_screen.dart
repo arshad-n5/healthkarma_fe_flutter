@@ -1,5 +1,3 @@
-// lib/features/home/home_screen.dart
-
 import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
@@ -81,10 +79,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Bottom navigation bar
-// ─────────────────────────────────────────────
 
 class _NavItem {
   final String imagePath;
@@ -174,10 +168,6 @@ class _BottomNavBar extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Top bar
-// ─────────────────────────────────────────────
-
 class _TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -242,10 +232,6 @@ class _TopBar extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Location row
-// ─────────────────────────────────────────────
-
 class _LocationRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -280,10 +266,6 @@ class _LocationRow extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Alert banner
-// ─────────────────────────────────────────────
-
 class _AlertBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -303,8 +285,7 @@ class _AlertBanner extends StatelessWidget {
         Expanded(
           child: Text(
             'Low pollen count and healthy air—great day to be outside',
-            style:
-                AppTextStyles.t3SB.copyWith(color: const Color(0xFF6FCF97)),
+            style: AppTextStyles.t3SB.copyWith(color: const Color(0xFF6FCF97)),
           ),
         ),
       ]),
@@ -312,22 +293,16 @@ class _AlertBanner extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Pollen index
-// ─────────────────────────────────────────────
-
 class _PollenSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Row(children: [
         Text('Pollen Index',
-            style:
-                AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
         const Spacer(),
         Text('Today',
-            style:
-                AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
+            style: AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
       ]),
       const SizedBox(height: 12),
       const Row(children: [
@@ -380,8 +355,7 @@ class _PollenCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(12)),
+          color: AppColors.surface, borderRadius: BorderRadius.circular(12)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
           Container(
@@ -395,13 +369,12 @@ class _PollenCard extends StatelessWidget {
           ),
           const Spacer(),
           Text('$value',
-              style: AppTextStyles.h5L
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.h5L.copyWith(color: AppColors.textSecondary)),
         ]),
         const SizedBox(height: 12),
         Text(_levelLabel,
-            style:
-                AppTextStyles.t2SB.copyWith(color: AppColors.alertGreen)),
+            style: AppTextStyles.t2SB.copyWith(color: AppColors.alertGreen)),
         const SizedBox(height: 6),
         ClipRRect(
           borderRadius: BorderRadius.circular(2),
@@ -409,22 +382,16 @@ class _PollenCard extends StatelessWidget {
             value: value / _maxValue,
             minHeight: 3,
             backgroundColor: AppColors.surfaceBorder,
-            valueColor:
-                const AlwaysStoppedAnimation(AppColors.alertGreen),
+            valueColor: const AlwaysStoppedAnimation(AppColors.alertGreen),
           ),
         ),
         const SizedBox(height: 8),
         Text(label,
-            style:
-                AppTextStyles.t2M.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t2M.copyWith(color: AppColors.textPrimary)),
       ]),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Wind + AQI
-// ─────────────────────────────────────────────
 
 class _WeatherAQIRow extends StatelessWidget {
   @override
@@ -440,26 +407,24 @@ class _WeatherAQIRow extends StatelessWidget {
       ),
       child: Row(children: [
         Expanded(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-              Row(children: [
-                Text('Wind',
-                    style: AppTextStyles.t4R
-                        .copyWith(color: AppColors.textSecondary)),
-                const Spacer(),
-                Image.asset("assets/HomeAssets/breezy 1.png",
-                    width: 34, height: 34, fit: BoxFit.contain),
-              ]),
-              const SizedBox(height: 8),
-              Text('5km/h',
-                  style: AppTextStyles.h6SB
-                      .copyWith(color: AppColors.textPrimary)),
-              const SizedBox(height: 2),
-              Text('Light Air',
-                  style: AppTextStyles.t5M
-                      .copyWith(color: AppColors.textSecondary)),
-            ])),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            Text('Wind',
+                style:
+                    AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
+            const Spacer(),
+            Image.asset("assets/HomeAssets/breezy 1.png",
+                width: 34, height: 34, fit: BoxFit.contain),
+          ]),
+          const SizedBox(height: 8),
+          Text('5km/h',
+              style: AppTextStyles.h6SB.copyWith(color: AppColors.textPrimary)),
+          const SizedBox(height: 2),
+          Text('Light Air',
+              style:
+                  AppTextStyles.t5M.copyWith(color: AppColors.textSecondary)),
+        ])),
         Container(
           width: 1,
           height: 100,
@@ -467,34 +432,28 @@ class _WeatherAQIRow extends StatelessWidget {
           color: const Color(0xFF48505B).withValues(alpha: 0.4),
         ),
         Expanded(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-              Row(children: [
-                Text('AQI',
-                    style: AppTextStyles.t4R
-                        .copyWith(color: AppColors.textSecondary)),
-                const Spacer(),
-                Image.asset("assets/HomeAssets/air-conditioner 1.png",
-                    width: 34, height: 34, fit: BoxFit.contain),
-              ]),
-              const SizedBox(height: 8),
-              Text('40',
-                  style: AppTextStyles.h6SB
-                      .copyWith(color: AppColors.textPrimary)),
-              const SizedBox(height: 2),
-              Text('Good',
-                  style: AppTextStyles.t5M
-                      .copyWith(color: AppColors.textSecondary)),
-            ])),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            Text('AQI',
+                style:
+                    AppTextStyles.t4R.copyWith(color: AppColors.textSecondary)),
+            const Spacer(),
+            Image.asset("assets/HomeAssets/air-conditioner 1.png",
+                width: 34, height: 34, fit: BoxFit.contain),
+          ]),
+          const SizedBox(height: 8),
+          Text('40',
+              style: AppTextStyles.h6SB.copyWith(color: AppColors.textPrimary)),
+          const SizedBox(height: 2),
+          Text('Good',
+              style:
+                  AppTextStyles.t5M.copyWith(color: AppColors.textSecondary)),
+        ])),
       ]),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Tips list
-// ─────────────────────────────────────────────
 
 class _TipsList extends StatelessWidget {
   static const _tips = [
@@ -525,8 +484,8 @@ class _TipsList extends StatelessWidget {
                         const SizedBox(width: 12),
                         Expanded(
                             child: Text(t.$2,
-                                style: AppTextStyles.t3R.copyWith(
-                                    color: AppColors.textPrimary))),
+                                style: AppTextStyles.t3R
+                                    .copyWith(color: AppColors.textPrimary))),
                       ]),
                 ))
             .toList(),
@@ -534,10 +493,6 @@ class _TipsList extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Section header
-// ─────────────────────────────────────────────
 
 class _SectionHeader extends StatelessWidget {
   final String title;
@@ -547,10 +502,6 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) => Text(title,
       style: AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary));
 }
-
-// ─────────────────────────────────────────────
-//  Medications reminder
-// ─────────────────────────────────────────────
 
 class _MedRow {
   final String name;
@@ -574,8 +525,7 @@ class _MedicationsReminder extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(14)),
+          color: AppColors.surface, borderRadius: BorderRadius.circular(14)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
           Container(
@@ -590,8 +540,7 @@ class _MedicationsReminder extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Text('Medications',
-              style: AppTextStyles.t2SB
-                  .copyWith(color: AppColors.textPrimary)),
+              style: AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
         ]),
         const SizedBox(height: 14),
         ..._meds.map((m) => Padding(
@@ -625,9 +574,7 @@ class _MedicationsReminder extends StatelessWidget {
                     )),
                 const SizedBox(width: 8),
                 Icon(Icons.check,
-                    color: m.done
-                        ? AppColors.alertGreen
-                        : AppColors.textMuted,
+                    color: m.done ? AppColors.alertGreen : AppColors.textMuted,
                     size: 16),
               ]),
             )),
@@ -636,18 +583,13 @@ class _MedicationsReminder extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Appointment reminder
-// ─────────────────────────────────────────────
-
 class _AppointmentReminder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(14)),
+          color: AppColors.surface, borderRadius: BorderRadius.circular(14)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
           Container(
@@ -663,8 +605,7 @@ class _AppointmentReminder extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Text('Appointment',
-              style: AppTextStyles.t2SB
-                  .copyWith(color: AppColors.textPrimary)),
+              style: AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
         ]),
         const SizedBox(height: 14),
         Divider(
@@ -678,25 +619,21 @@ class _AppointmentReminder extends StatelessWidget {
                   style: AppTextStyles.t4R
                       .copyWith(color: AppColors.textPrimary))),
           Text('Today',
-              style: AppTextStyles.t5M
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.t5M.copyWith(color: AppColors.textSecondary)),
           Container(
               width: 1,
               height: 12,
               margin: const EdgeInsets.symmetric(horizontal: 8),
               color: AppColors.surfaceBorder),
           Text('3:30 PM',
-              style: AppTextStyles.t5M
-                  .copyWith(color: AppColors.textSecondary)),
+              style:
+                  AppTextStyles.t5M.copyWith(color: AppColors.textSecondary)),
         ]),
       ]),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Vitals grid
-// ─────────────────────────────────────────────
 
 class _VitalsGrid extends StatelessWidget {
   @override
@@ -748,8 +685,8 @@ class _PeakFlowCard extends StatelessWidget {
                 width: 16,
                 height: 16,
                 fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const Icon(Icons.air,
-                    color: Color(0xFF999999), size: 16)),
+                errorBuilder: (_, __, ___) =>
+                    const Icon(Icons.air, color: Color(0xFF999999), size: 16)),
             const SizedBox(width: 5),
             const Text('Peak Flow',
                 style: TextStyle(
@@ -766,8 +703,19 @@ class _PeakFlowCard extends StatelessWidget {
                 size: const Size(double.infinity, double.infinity),
                 painter: _SparklinePainter(
                   points: const [
-                    0.3, 0.25, 0.38, 0.28, 0.42, 0.35, 0.30, 0.38,
-                    0.45, 0.40, 0.50, 0.55, 0.65
+                    0.3,
+                    0.25,
+                    0.38,
+                    0.28,
+                    0.42,
+                    0.35,
+                    0.30,
+                    0.38,
+                    0.45,
+                    0.40,
+                    0.50,
+                    0.55,
+                    0.65
                   ],
                   color: const Color(0xFF69C7F5),
                   strokeWidth: 2.0,
@@ -898,10 +846,6 @@ class _VitalCard extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Today's Workout / Care Plan
-// ─────────────────────────────────────────────
-
 class _WorkoutItem {
   final String imagePath;
   final Color iconBg;
@@ -936,8 +880,7 @@ class _WorkoutSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(14)),
+          color: AppColors.surface, borderRadius: BorderRadius.circular(14)),
       child: Column(
         children: List.generate(_items.length, (i) {
           final item = _items[i];
@@ -947,8 +890,8 @@ class _WorkoutSection extends StatelessWidget {
               Container(
                 width: 52,
                 height: 52,
-                decoration: BoxDecoration(
-                    color: item.iconBg, shape: BoxShape.circle),
+                decoration:
+                    BoxDecoration(color: item.iconBg, shape: BoxShape.circle),
                 child: Padding(
                     padding: const EdgeInsets.all(12),
                     child: Image.asset(item.imagePath,
@@ -972,8 +915,7 @@ class _WorkoutSection extends StatelessWidget {
                             .copyWith(color: AppColors.textSecondary)),
                   ])),
               if (item.done) ...[
-                const Icon(Icons.check,
-                    color: AppColors.alertGreen, size: 16),
+                const Icon(Icons.check, color: AppColors.alertGreen, size: 16),
                 const SizedBox(width: 4),
                 Text('Done',
                     style: AppTextStyles.t4SB
@@ -997,10 +939,6 @@ class _WorkoutSection extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Your Daily Goal
-// ─────────────────────────────────────────────
 
 class _DailyGoalSection extends StatelessWidget {
   @override
@@ -1047,16 +985,14 @@ class _GoalCard extends StatelessWidget {
         Container(
           width: 60,
           height: 60,
-          decoration: const BoxDecoration(
-              color: Colors.white, shape: BoxShape.circle),
+          decoration:
+              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
           child: Padding(
               padding: const EdgeInsets.all(14),
               child: Image.asset(imagePath,
                   fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => const Icon(
-                      Icons.track_changes,
-                      color: Colors.black54,
-                      size: 22))),
+                  errorBuilder: (_, __, ___) => const Icon(Icons.track_changes,
+                      color: Colors.black54, size: 22))),
         ),
         const SizedBox(height: 8),
         Text(title,
@@ -1076,10 +1012,6 @@ class _GoalCard extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Today's Reading
-// ─────────────────────────────────────────────
 
 class _ReadingItem {
   final String imagePath;
@@ -1115,8 +1047,8 @@ class _TodaysReading extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: const Color(0xFFEBEBEB),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                        color: const Color(0xFF48505B), width: 0.3),
+                    border:
+                        Border.all(color: const Color(0xFF48505B), width: 0.3),
                   ),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1129,8 +1061,7 @@ class _TodaysReading extends StatelessWidget {
                               width: double.infinity,
                               fit: BoxFit.cover,
                               errorBuilder: (_, __, ___) => Container(
-                                  height: 175,
-                                  color: const Color(0xFFD9D9D9))),
+                                  height: 175, color: const Color(0xFFD9D9D9))),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(12),
@@ -1162,20 +1093,12 @@ class _TodaysReading extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Med list body (tab 1)
-// ─────────────────────────────────────────────
-
 class _MedListBody extends StatelessWidget {
   const _MedListBody();
 
   @override
   Widget build(BuildContext context) => medlist.MedListBody();
 }
-
-// ─────────────────────────────────────────────
-//  Placeholder tabs
-// ─────────────────────────────────────────────
 
 class _PlaceholderTab extends StatelessWidget {
   final String label;
@@ -1186,25 +1109,18 @@ class _PlaceholderTab extends StatelessWidget {
     return SafeArea(
       child: Center(
         child: Text(label,
-            style: AppTextStyles.t2SB
-                .copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Sparkline painter
-// ─────────────────────────────────────────────
 
 class _SparklinePainter extends CustomPainter {
   final List<double> points;
   final Color color;
   final double strokeWidth;
   const _SparklinePainter(
-      {required this.points,
-      required this.color,
-      this.strokeWidth = 2.0});
+      {required this.points, required this.color, this.strokeWidth = 2.0});
 
   @override
   void paint(Canvas canvas, Size size) {

@@ -1,17 +1,6 @@
-// lib/features/profile/lifestyle_screen.dart
-//
-// Step 2/3 — Life style form
-// Fields: Ongoing conditions (dropdown → inline radio),
-//         Drinking Habits (dropdown → inline radio),
-//         Smoking Status (dropdown → inline radio),
-//         Allergies (dropdown → inline checkboxes, multi-select),
-//         Sleep Quality (dropdown → inline radio),
-//         Diet Preferences (dropdown → inline radio)
-
 import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
-import '../../routes/app_routes.dart';
 import '../../routes/app_routes.dart';
 
 class LifestyleScreen extends StatefulWidget {
@@ -22,24 +11,20 @@ class LifestyleScreen extends StatefulWidget {
 }
 
 class _LifestyleScreenState extends State<LifestyleScreen> {
+  String? _condition;
+  String? _drinkingHabit;
+  String? _smokingStatus;
+  Set<String> _allergies = {};
+  String? _sleepQuality;
+  String? _dietPreference;
 
-  // ── Selections ───────────────────────────
-  String?      _condition;
-  String?      _drinkingHabit;
-  String?      _smokingStatus;
-  Set<String>  _allergies     = {};
-  String?      _sleepQuality;
-  String?      _dietPreference;
+  bool _showConditions = false;
+  bool _showDrinking = false;
+  bool _showSmoking = false;
+  bool _showAllergies = false;
+  bool _showSleep = false;
+  bool _showDiet = false;
 
-  // ── Open/close toggles ───────────────────
-  bool _showConditions   = false;
-  bool _showDrinking     = false;
-  bool _showSmoking      = false;
-  bool _showAllergies    = false;
-  bool _showSleep        = false;
-  bool _showDiet         = false;
-
-  // ── Options ──────────────────────────────
   static const _conditions = [
     'Asthma',
     'Cardiology (e.g., Hypertension)',
@@ -86,11 +71,11 @@ class _LifestyleScreenState extends State<LifestyleScreen> {
   ];
 
   bool get _canContinue =>
-      _condition     != null &&
+      _condition != null &&
       _drinkingHabit != null &&
       _smokingStatus != null &&
       _allergies.isNotEmpty &&
-      _sleepQuality  != null &&
+      _sleepQuality != null &&
       _dietPreference != null;
 
   String _allergyLabel() {
@@ -101,26 +86,24 @@ class _LifestyleScreenState extends State<LifestyleScreen> {
 
   void _onContinue() {
     if (!_canContinue) return;
-    // TODO: navigate to step 3
     Navigator.pushNamed(context, AppRoutes.medications);
   }
 
-  // ── Close all other pickers when opening one ──
   void _toggle(String field) {
     setState(() {
       _showConditions = field == 'conditions' ? !_showConditions : false;
-      _showDrinking   = field == 'drinking'   ? !_showDrinking   : false;
-      _showSmoking    = field == 'smoking'    ? !_showSmoking    : false;
-      _showAllergies  = field == 'allergies'  ? !_showAllergies  : false;
-      _showSleep      = field == 'sleep'      ? !_showSleep      : false;
-      _showDiet       = field == 'diet'       ? !_showDiet       : false;
+      _showDrinking = field == 'drinking' ? !_showDrinking : false;
+      _showSmoking = field == 'smoking' ? !_showSmoking : false;
+      _showAllergies = field == 'allergies' ? !_showAllergies : false;
+      _showSleep = field == 'sleep' ? !_showSleep : false;
+      _showDiet = field == 'diet' ? !_showDiet : false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:          AppColors.background,
+      backgroundColor: AppColors.background,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
@@ -135,78 +118,70 @@ class _LifestyleScreenState extends State<LifestyleScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _FormCard(children: [
-
-                      // ── Ongoing Conditions ──────────
                       _FieldLabel('Any ongoing conditions?'),
                       _TappableField(
-                        text:     _condition ?? '',
-                        isOpen:   _showConditions,
-                        onTap:    () => _toggle('conditions'),
+                        text: _condition ?? '',
+                        isOpen: _showConditions,
+                        onTap: () => _toggle('conditions'),
                       ),
                       if (_showConditions) ...[
                         const SizedBox(height: 10),
                         _RadioList(
-                          options:  _conditions,
+                          options: _conditions,
                           selected: _condition,
                           onChanged: (v) => setState(() {
-                            _condition      = v;
+                            _condition = v;
                             _showConditions = false;
                           }),
                         ),
                       ],
                       const SizedBox(height: 16),
-
-                      // ── Drinking Habits ─────────────
                       _FieldLabel('Drinking Habits'),
                       _TappableField(
-                        text:   _drinkingHabit ?? '',
+                        text: _drinkingHabit ?? '',
                         isOpen: _showDrinking,
-                        onTap:  () => _toggle('drinking'),
+                        onTap: () => _toggle('drinking'),
                       ),
                       if (_showDrinking) ...[
                         const SizedBox(height: 10),
                         _RadioList(
-                          options:  _drinkingOptions,
+                          options: _drinkingOptions,
                           selected: _drinkingHabit,
                           onChanged: (v) => setState(() {
                             _drinkingHabit = v;
-                            _showDrinking  = false;
+                            _showDrinking = false;
                           }),
                         ),
                       ],
                       const SizedBox(height: 16),
-
-                      // ── Smoking Status ──────────────
                       _FieldLabel('Smoking Status'),
                       _TappableField(
-                        text:   _smokingStatus ?? '',
+                        text: _smokingStatus ?? '',
                         isOpen: _showSmoking,
-                        onTap:  () => _toggle('smoking'),
+                        onTap: () => _toggle('smoking'),
                       ),
                       if (_showSmoking) ...[
                         const SizedBox(height: 10),
                         _RadioList(
-                          options:  _smokingOptions,
+                          options: _smokingOptions,
                           selected: _smokingStatus,
                           onChanged: (v) => setState(() {
                             _smokingStatus = v;
-                            _showSmoking   = false;
+                            _showSmoking = false;
                           }),
                         ),
                       ],
                       const SizedBox(height: 16),
-
-                      // ── Allergies (multi-select) ────
                       _FieldLabel('Allergies'),
                       _TappableField(
-                        text:   _allergyLabel(),
+                        text: _allergyLabel(),
                         isOpen: _showAllergies,
-                        onTap:  () => _toggle('allergies'),
+                        onTap: () => _toggle('allergies'),
                       ),
                       if (_showAllergies) ...[
                         const SizedBox(height: 10),
                         _CheckboxList(
-                          options:  _allergyOptions,
+                          options: _allergyOptions,
                           selected: _allergies,
                           onChanged: (v, checked) => setState(() {
                             if (checked) {
@@ -218,56 +193,48 @@ class _LifestyleScreenState extends State<LifestyleScreen> {
                         ),
                       ],
                       const SizedBox(height: 16),
-
-                      // ── Sleep Quality ───────────────
                       _FieldLabel('Sleep Quality'),
                       _TappableField(
-                        text:   _sleepQuality ?? '',
+                        text: _sleepQuality ?? '',
                         isOpen: _showSleep,
-                        onTap:  () => _toggle('sleep'),
+                        onTap: () => _toggle('sleep'),
                       ),
                       if (_showSleep) ...[
                         const SizedBox(height: 10),
                         _RadioList(
-                          options:  _sleepOptions,
+                          options: _sleepOptions,
                           selected: _sleepQuality,
                           onChanged: (v) => setState(() {
                             _sleepQuality = v;
-                            _showSleep    = false;
+                            _showSleep = false;
                           }),
                         ),
                       ],
                       const SizedBox(height: 16),
-
-                      // ── Diet Preferences ────────────
                       _FieldLabel('Diet Preferences'),
                       _TappableField(
-                        text:   _dietPreference ?? '',
+                        text: _dietPreference ?? '',
                         isOpen: _showDiet,
-                        onTap:  () => _toggle('diet'),
+                        onTap: () => _toggle('diet'),
                       ),
                       if (_showDiet) ...[
                         const SizedBox(height: 10),
                         _RadioList(
-                          options:  _dietOptions,
+                          options: _dietOptions,
                           selected: _dietPreference,
                           onChanged: (v) => setState(() {
                             _dietPreference = v;
-                            _showDiet       = false;
+                            _showDiet = false;
                           }),
                         ),
                       ],
                     ]),
-
                     const SizedBox(height: 24),
-
                     _ContinueButton(
                       active: _canContinue,
-                      onTap:  _onContinue,
+                      onTap: _onContinue,
                     ),
-
-                    SizedBox(
-                        height: MediaQuery.of(context).padding.bottom + 8),
+                    SizedBox(height: MediaQuery.of(context).padding.bottom + 8),
                   ],
                 ),
               ),
@@ -278,10 +245,6 @@ class _LifestyleScreenState extends State<LifestyleScreen> {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Top bar  2/3
-// ─────────────────────────────────────────────
 
 class _TopBar extends StatelessWidget {
   final VoidCallback onSkip;
@@ -300,19 +263,20 @@ class _TopBar extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           SizedBox(
-            width: 44, height: 44,
+            width: 44,
+            height: 44,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 CircularProgressIndicator(
-                  value:           2 / 3,
-                  strokeWidth:     3,
+                  value: 2 / 3,
+                  strokeWidth: 3,
                   backgroundColor: AppColors.black200,
                   valueColor: const AlwaysStoppedAnimation(AppColors.primary),
                 ),
                 Text('2/3',
-                    style: AppTextStyles.t5SB
-                        .copyWith(color: AppColors.primary)),
+                    style:
+                        AppTextStyles.t5SB.copyWith(color: AppColors.primary)),
               ],
             ),
           ),
@@ -329,18 +293,13 @@ class _TopBar extends StatelessWidget {
           GestureDetector(
             onTap: onSkip,
             child: Text('Skip',
-                style: AppTextStyles.t2M
-                    .copyWith(color: AppColors.primary)),
+                style: AppTextStyles.t2M.copyWith(color: AppColors.primary)),
           ),
         ],
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Shared form widgets
-// ─────────────────────────────────────────────
 
 class _FormCard extends StatelessWidget {
   final List<Widget> children;
@@ -349,10 +308,10 @@ class _FormCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width:   double.infinity,
+      width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color:        AppColors.surface,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -375,8 +334,8 @@ class _FieldLabel extends StatelessWidget {
 }
 
 class _TappableField extends StatelessWidget {
-  final String       text;
-  final bool         isOpen;
+  final String text;
+  final bool isOpen;
   final VoidCallback onTap;
 
   const _TappableField({
@@ -390,7 +349,7 @@ class _TappableField extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height:  44,
+        height: 44,
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           color: AppColors.surfaceLight,
@@ -416,7 +375,7 @@ class _TappableField extends StatelessWidget {
                   ? Icons.keyboard_arrow_up_rounded
                   : Icons.keyboard_arrow_down_rounded,
               color: AppColors.textMuted,
-              size:  22,
+              size: 22,
             ),
           ],
         ),
@@ -425,11 +384,9 @@ class _TappableField extends StatelessWidget {
   }
 }
 
-// ── Radio list (single select) ───────────────
-
 class _RadioList extends StatelessWidget {
-  final List<String>      options;
-  final String?           selected;
+  final List<String> options;
+  final String? selected;
   final ValueChanged<String> onChanged;
 
   const _RadioList({
@@ -442,14 +399,13 @@ class _RadioList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color:        AppColors.surfaceLight,
-        borderRadius: const BorderRadius.vertical(
-            bottom: Radius.circular(8)),
+        color: AppColors.surfaceLight,
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8)),
       ),
       child: Column(
         children: List.generate(options.length, (i) {
-          final opt    = options[i];
-          final isSel  = opt == selected;
+          final opt = options[i];
+          final isSel = opt == selected;
           final isLast = i == options.length - 1;
 
           return Column(
@@ -457,23 +413,21 @@ class _RadioList extends StatelessWidget {
               InkWell(
                 onTap: () => onChanged(opt),
                 borderRadius: isLast
-                    ? const BorderRadius.vertical(
-                        bottom: Radius.circular(8))
+                    ? const BorderRadius.vertical(bottom: Radius.circular(8))
                     : BorderRadius.zero,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   child: Row(
                     children: [
-                      // Custom radio dot
                       Container(
-                        width: 20, height: 20,
+                        width: 20,
+                        height: 20,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: isSel
-                                ? AppColors.primary
-                                : AppColors.black200,
+                            color:
+                                isSel ? AppColors.primary : AppColors.black200,
                             width: isSel ? 5.5 : 1.5,
                           ),
                         ),
@@ -490,8 +444,9 @@ class _RadioList extends StatelessWidget {
               ),
               if (!isLast)
                 Divider(
-                  height: 1, thickness: 1,
-                  color:  AppColors.surfaceBorder.withOpacity(0.4),
+                  height: 1,
+                  thickness: 1,
+                  color: AppColors.surfaceBorder.withOpacity(0.4),
                   indent: 48,
                 ),
             ],
@@ -502,11 +457,9 @@ class _RadioList extends StatelessWidget {
   }
 }
 
-// ── Checkbox list (multi-select) ─────────────
-
 class _CheckboxList extends StatelessWidget {
-  final List<String>   options;
-  final Set<String>    selected;
+  final List<String> options;
+  final Set<String> selected;
   final void Function(String, bool) onChanged;
 
   const _CheckboxList({
@@ -519,14 +472,13 @@ class _CheckboxList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color:        AppColors.surfaceLight,
-        borderRadius: const BorderRadius.vertical(
-            bottom: Radius.circular(8)),
+        color: AppColors.surfaceLight,
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8)),
       ),
       child: Column(
         children: List.generate(options.length, (i) {
-          final opt    = options[i];
-          final isSel  = selected.contains(opt);
+          final opt = options[i];
+          final isSel = selected.contains(opt);
           final isLast = i == options.length - 1;
 
           return Column(
@@ -534,26 +486,22 @@ class _CheckboxList extends StatelessWidget {
               InkWell(
                 onTap: () => onChanged(opt, !isSel),
                 borderRadius: isLast
-                    ? const BorderRadius.vertical(
-                        bottom: Radius.circular(8))
+                    ? const BorderRadius.vertical(bottom: Radius.circular(8))
                     : BorderRadius.zero,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   child: Row(
                     children: [
-                      // Custom checkbox
                       Container(
-                        width: 20, height: 20,
+                        width: 20,
+                        height: 20,
                         decoration: BoxDecoration(
-                          color: isSel
-                              ? AppColors.primary
-                              : Colors.transparent,
+                          color: isSel ? AppColors.primary : Colors.transparent,
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                            color: isSel
-                                ? AppColors.primary
-                                : AppColors.black200,
+                            color:
+                                isSel ? AppColors.primary : AppColors.black200,
                             width: 1.5,
                           ),
                         ),
@@ -574,8 +522,9 @@ class _CheckboxList extends StatelessWidget {
               ),
               if (!isLast)
                 Divider(
-                  height: 1, thickness: 1,
-                  color:  AppColors.surfaceBorder.withOpacity(0.4),
+                  height: 1,
+                  thickness: 1,
+                  color: AppColors.surfaceBorder.withOpacity(0.4),
                   indent: 48,
                 ),
             ],
@@ -586,12 +535,8 @@ class _CheckboxList extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  Continue button
-// ─────────────────────────────────────────────
-
 class _ContinueButton extends StatelessWidget {
-  final bool         active;
+  final bool active;
   final VoidCallback onTap;
 
   const _ContinueButton({required this.active, required this.onTap});
@@ -600,17 +545,17 @@ class _ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
-      height:   52,
+      height: 52,
       decoration: BoxDecoration(
-        color:        active ? AppColors.primary : AppColors.surfaceLight,
+        color: active ? AppColors.primary : AppColors.surfaceLight,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Material(
-        color:        Colors.transparent,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(14),
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
-          onTap:        active ? onTap : null,
+          onTap: active ? onTap : null,
           child: Center(
             child: Text(
               'Continue',

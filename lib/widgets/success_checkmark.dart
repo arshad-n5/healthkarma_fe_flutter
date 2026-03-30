@@ -24,17 +24,17 @@ class _SuccessCheckmarkState extends State<SuccessCheckmark>
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-      vsync:    this,
+      vsync: this,
       duration: const Duration(milliseconds: 800),
     )..forward();
 
     _checkAnim = CurvedAnimation(
       parent: _ctrl,
-      curve:  const Interval(0.0, 0.6, curve: Curves.elasticOut),
+      curve: const Interval(0.0, 0.6, curve: Curves.elasticOut),
     );
     _sparkleAnim = CurvedAnimation(
       parent: _ctrl,
-      curve:  const Interval(0.45, 1.0, curve: Curves.easeOut),
+      curve: const Interval(0.45, 1.0, curve: Curves.easeOut),
     );
   }
 
@@ -51,9 +51,9 @@ class _SuccessCheckmarkState extends State<SuccessCheckmark>
       builder: (_, __) => CustomPaint(
         size: Size(widget.size * 1.8, widget.size * 1.6),
         painter: _CheckmarkWithSparklePainter(
-          checkProgress:   _checkAnim.value,
+          checkProgress: _checkAnim.value,
           sparkleProgress: _sparkleAnim.value,
-          baseSize:        widget.size,
+          baseSize: widget.size,
         ),
       ),
     );
@@ -73,7 +73,7 @@ class _CheckmarkWithSparklePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final cx = size.width  / 2;
+    final cx = size.width / 2;
     final cy = size.height / 2;
 
     // ── Draw sparkles first (behind checkmark) ──
@@ -93,25 +93,25 @@ class _CheckmarkWithSparklePainter extends CustomPainter {
 
     // checkmark stroke — thick rounded
     final paint = Paint()
-      ..color      = const Color(0xFF7ED957)
-      ..style      = PaintingStyle.stroke
-      ..strokeCap  = StrokeCap.round
+      ..color = const Color(0xFF7ED957)
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..strokeWidth = s * 0.42;
 
     final path = Path();
 
     // Left short arm: goes down-left
-    final leftX  = cx - s * 0.65;
-    final leftY  = cy + s * 0.10;
-    final midX   = cx - s * 0.05;
-    final midY   = cy + s * 0.72;
+    final leftX = cx - s * 0.65;
+    final leftY = cy + s * 0.10;
+    final midX = cx - s * 0.05;
+    final midY = cy + s * 0.72;
     // Right long arm: goes up-right
     final rightX = cx + s * 1.05;
     final rightY = cy - s * 0.55;
 
     path.moveTo(leftX, leftY);
-    path.lineTo(midX,  midY);
+    path.lineTo(midX, midY);
     path.lineTo(rightX, rightY);
 
     canvas.save();
@@ -135,17 +135,16 @@ class _CheckmarkWithSparklePainter extends CustomPainter {
       // top-left larger star
       [-0.22 * baseSize, -0.72 * baseSize, baseSize * 0.145, 0.08],
       // bottom-right star
-      [ 0.52 * baseSize,  0.28 * baseSize, baseSize * 0.115, 0.15],
+      [0.52 * baseSize, 0.28 * baseSize, baseSize * 0.115, 0.15],
     ];
 
     for (final sp in sparkles) {
-      final dx      = sp[0] as double;
-      final dy      = sp[1] as double;
-      final r       = sp[2] as double;
+      final dx = sp[0] as double;
+      final dy = sp[1] as double;
+      final r = sp[2] as double;
       final stagger = sp[3] as double;
 
-      final p = ((sparkleProgress - stagger) / (1.0 - stagger))
-          .clamp(0.0, 1.0);
+      final p = ((sparkleProgress - stagger) / (1.0 - stagger)).clamp(0.0, 1.0);
       if (p <= 0) continue;
 
       _drawStar(
@@ -159,26 +158,29 @@ class _CheckmarkWithSparklePainter extends CustomPainter {
   }
 
   // ── 4-pointed star ────────────────────────────
-  void _drawStar(Canvas canvas, double cx, double cy, double outerR, Color color) {
+  void _drawStar(
+      Canvas canvas, double cx, double cy, double outerR, Color color) {
     final innerR = outerR * 0.22;
-    final path   = Path();
+    final path = Path();
 
     for (int i = 0; i < 8; i++) {
-      final angle  = (i * math.pi / 4) - math.pi / 2;
+      final angle = (i * math.pi / 4) - math.pi / 2;
       final radius = i.isEven ? outerR : innerR;
-      final px     = cx + math.cos(angle) * radius;
-      final py     = cy + math.sin(angle) * radius;
+      final px = cx + math.cos(angle) * radius;
+      final py = cy + math.sin(angle) * radius;
       i == 0 ? path.moveTo(px, py) : path.lineTo(px, py);
     }
     path.close();
 
-    canvas.drawPath(path, Paint()
-      ..color = color
-      ..style = PaintingStyle.fill);
+    canvas.drawPath(
+        path,
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.fill);
   }
 
   @override
   bool shouldRepaint(_CheckmarkWithSparklePainter old) =>
-      old.checkProgress   != checkProgress ||
+      old.checkProgress != checkProgress ||
       old.sparkleProgress != sparkleProgress;
 }

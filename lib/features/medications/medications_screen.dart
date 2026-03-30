@@ -1,12 +1,6 @@
-// lib/features/medications/medications_screen.dart
-
 import 'package:flutter/material.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
-
-// ─────────────────────────────────────────────
-//  Data models
-// ─────────────────────────────────────────────
 
 class _ActiveMed {
   final String imagePath;
@@ -34,7 +28,7 @@ class _HistoryMed {
   final String reasonStopped;
   final String prescribedBy;
   final String remarks;
-  final String condition; // used for filtering
+  final String condition;
 
   const _HistoryMed({
     required this.name,
@@ -47,10 +41,6 @@ class _HistoryMed {
     this.condition = '',
   });
 }
-
-// ─────────────────────────────────────────────
-//  Filter model
-// ─────────────────────────────────────────────
 
 class _FilterState {
   final Set<String> medTypes;
@@ -91,10 +81,6 @@ class _FilterState {
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Screen
-// ─────────────────────────────────────────────
 
 class MedListScreen extends StatefulWidget {
   const MedListScreen({super.key});
@@ -188,7 +174,6 @@ class _MedListScreenState extends State<MedListScreen>
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Column(children: [
-          // ── Header ──────────────────────────
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Row(children: [
@@ -205,16 +190,14 @@ class _MedListScreenState extends State<MedListScreen>
                     border: Border.all(color: AppColors.primary, width: 1.5),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(Icons.add,
-                      color: AppColors.primary, size: 20),
+                  child:
+                      const Icon(Icons.add, color: AppColors.primary, size: 20),
                 )
               else
                 const SizedBox(width: 36),
             ]),
           ),
           const SizedBox(height: 16),
-
-          // ── Tabs ────────────────────────────
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TabBar(
@@ -233,8 +216,6 @@ class _MedListScreenState extends State<MedListScreen>
               ],
             ),
           ),
-
-          // ── Tab content ─────────────────────
           Expanded(
             child: TabBarView(
               controller: _tabController,
@@ -259,10 +240,6 @@ class _MedListScreenState extends State<MedListScreen>
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Active tab
-// ─────────────────────────────────────────────
 
 class _ActiveTab extends StatelessWidget {
   final List<_ActiveMed> meds;
@@ -383,10 +360,6 @@ class _ActiveMedCard extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-//  History tab  ← filter logic lives here
-// ─────────────────────────────────────────────
-
 class _HistoryTab extends StatefulWidget {
   final List<_HistoryMed> meds;
   const _HistoryTab({required this.meds});
@@ -411,11 +384,9 @@ class _HistoryTabState extends State<_HistoryTab> {
     super.dispose();
   }
 
-  // ── Apply all active filters + search to the list ──────────────────────────
   List<_HistoryMed> get _filtered {
     List<_HistoryMed> result = List.from(widget.meds);
 
-    // 1. Search
     final query = _searchCtrl.text.trim().toLowerCase();
     if (query.isNotEmpty) {
       result = result
@@ -426,7 +397,6 @@ class _HistoryTabState extends State<_HistoryTab> {
           .toList();
     }
 
-    // 2. Type of Medication
     if (_filter.medTypes.isNotEmpty) {
       result = result
           .where((m) => _filter.medTypes
@@ -434,7 +404,6 @@ class _HistoryTabState extends State<_HistoryTab> {
           .toList();
     }
 
-    // 3. Condition Treated
     if (_filter.conditions.isNotEmpty) {
       result = result
           .where((m) => _filter.conditions
@@ -442,15 +411,13 @@ class _HistoryTabState extends State<_HistoryTab> {
           .toList();
     }
 
-    // 4. Reason Stopped
     if (_filter.reasonsStopped.isNotEmpty) {
       result = result
-          .where((m) => _filter.reasonsStopped.any((r) =>
-              m.reasonStopped.toLowerCase().contains(r.toLowerCase())))
+          .where((m) => _filter.reasonsStopped.any(
+              (r) => m.reasonStopped.toLowerCase().contains(r.toLowerCase())))
           .toList();
     }
 
-    // 5. Sort By
     if (_filter.sortBy != null) {
       switch (_filter.sortBy) {
         case 'A–Z by name':
@@ -460,11 +427,9 @@ class _HistoryTabState extends State<_HistoryTab> {
           result.sort((a, b) => a.condition.compareTo(b.condition));
           break;
         case 'Most recent':
-          // Most recently ended first — simple string compare works for "Month YYYY" format
           result = result.reversed.toList();
           break;
         case 'Oldest first':
-          // Already in oldest-first order in the source list
           break;
       }
     }
@@ -472,7 +437,6 @@ class _HistoryTabState extends State<_HistoryTab> {
     return result;
   }
 
-  // ── Active filter chip count (for badge on button) ─────────────────────────
   int get _activeFilterCount =>
       _filter.medTypes.length +
       _filter.conditions.length +
@@ -485,7 +449,6 @@ class _HistoryTabState extends State<_HistoryTab> {
     final results = _filtered;
 
     return Column(children: [
-      // ── Search + Filter row ─────────────────────────────────────────────
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
         child: Row(children: [
@@ -498,8 +461,7 @@ class _HistoryTabState extends State<_HistoryTab> {
               ),
               child: TextField(
                 controller: _searchCtrl,
-                style:
-                    AppTextStyles.t4R.copyWith(color: AppColors.textPrimary),
+                style: AppTextStyles.t4R.copyWith(color: AppColors.textPrimary),
                 decoration: InputDecoration(
                   hintText: 'Search',
                   hintStyle:
@@ -513,7 +475,6 @@ class _HistoryTabState extends State<_HistoryTab> {
             ),
           ),
           const SizedBox(width: 10),
-          // Filter button — shows badge when filters are active
           GestureDetector(
             onTap: () async {
               final result = await showModalBottomSheet<_FilterState>(
@@ -555,7 +516,6 @@ class _HistoryTabState extends State<_HistoryTab> {
                             .copyWith(color: AppColors.textPrimary)),
                   ]),
                 ),
-                // Badge
                 if (_activeFilterCount > 0)
                   Positioned(
                     top: -6,
@@ -584,8 +544,6 @@ class _HistoryTabState extends State<_HistoryTab> {
           ),
         ]),
       ),
-
-      // ── Active filter chips row (shown when filters are applied) ────────
       if (_activeFilterCount > 0)
         _ActiveFilterChipsRow(
           filter: _filter,
@@ -601,8 +559,6 @@ class _HistoryTabState extends State<_HistoryTab> {
           onClearSort: () =>
               setState(() => _filter = _filter.copyWith(clearSort: true)),
         ),
-
-      // ── Results ─────────────────────────────────────────────────────────
       Expanded(
         child: results.isEmpty
             ? _EmptyFilterResult(
@@ -618,10 +574,6 @@ class _HistoryTabState extends State<_HistoryTab> {
     ]);
   }
 }
-
-// ─────────────────────────────────────────────
-//  Active filter chips row
-// ─────────────────────────────────────────────
 
 class _ActiveFilterChipsRow extends StatelessWidget {
   final _FilterState filter;
@@ -659,8 +611,7 @@ class _ActiveFilterChipsRow extends StatelessWidget {
       chips.add(_RemovableChip(label: r, onRemove: () => onRemoveReason(r)));
     }
     if (filter.sortBy != null) {
-      chips.add(_RemovableChip(
-          label: filter.sortBy!, onRemove: onClearSort));
+      chips.add(_RemovableChip(label: filter.sortBy!, onRemove: onClearSort));
     }
 
     return Padding(
@@ -707,8 +658,8 @@ class _RemovableChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.primary.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(20),
-        border:
-            Border.all(color: AppColors.primary.withValues(alpha: 0.4), width: 1),
+        border: Border.all(
+            color: AppColors.primary.withValues(alpha: 0.4), width: 1),
       ),
       child: Row(mainAxisSize: MainAxisSize.min, children: [
         Text(label,
@@ -716,16 +667,13 @@ class _RemovableChip extends StatelessWidget {
         const SizedBox(width: 6),
         GestureDetector(
           onTap: onRemove,
-          child: const Icon(Icons.close, size: 12, color: AppColors.textSecondary),
+          child:
+              const Icon(Icons.close, size: 12, color: AppColors.textSecondary),
         ),
       ]),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  Empty state when filter returns no results
-// ─────────────────────────────────────────────
 
 class _EmptyFilterResult extends StatelessWidget {
   final VoidCallback onClear;
@@ -747,8 +695,7 @@ class _EmptyFilterResult extends StatelessWidget {
         GestureDetector(
           onTap: onClear,
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               color: AppColors.primary.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(20),
@@ -756,18 +703,13 @@ class _EmptyFilterResult extends StatelessWidget {
                   color: AppColors.primary.withValues(alpha: 0.4), width: 1),
             ),
             child: Text('Clear filters',
-                style:
-                    AppTextStyles.t4M.copyWith(color: AppColors.primary)),
+                style: AppTextStyles.t4M.copyWith(color: AppColors.primary)),
           ),
         ),
       ]),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  History med card
-// ─────────────────────────────────────────────
 
 class _HistoryMedCard extends StatelessWidget {
   final _HistoryMed med;
@@ -783,8 +725,7 @@ class _HistoryMedCard extends StatelessWidget {
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(med.name,
-            style:
-                AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
+            style: AppTextStyles.t2SB.copyWith(color: AppColors.textPrimary)),
         const SizedBox(height: 8),
         _InfoRow('Type', med.type),
         if (med.condition.isNotEmpty) _InfoRow('Condition', med.condition),
@@ -809,8 +750,7 @@ class _InfoRow extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: RichText(
         text: TextSpan(
-          style:
-              AppTextStyles.t4R.copyWith(color: AppColors.textSecondary),
+          style: AppTextStyles.t4R.copyWith(color: AppColors.textSecondary),
           children: [
             TextSpan(
                 text: '$label: ',
@@ -818,18 +758,13 @@ class _InfoRow extends StatelessWidget {
             TextSpan(
                 text: value,
                 style: const TextStyle(
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.w500)),
+                    color: AppColors.textPrimary, fontWeight: FontWeight.w500)),
           ],
         ),
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────
-//  MedListBody — used by home IndexedStack
-// ─────────────────────────────────────────────
 
 class MedListBody extends StatefulWidget {
   const MedListBody({super.key});
@@ -865,8 +800,8 @@ class _MedListBodyState extends State<MedListBody>
           child: Row(children: [
             const Spacer(),
             Text('Medications',
-                style: AppTextStyles.h6SB
-                    .copyWith(color: AppColors.textPrimary)),
+                style:
+                    AppTextStyles.h6SB.copyWith(color: AppColors.textPrimary)),
             const Spacer(),
             if (isActive)
               Container(
@@ -876,8 +811,8 @@ class _MedListBodyState extends State<MedListBody>
                   border: Border.all(color: AppColors.primary, width: 1.5),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.add,
-                    color: AppColors.primary, size: 20),
+                child:
+                    const Icon(Icons.add, color: AppColors.primary, size: 20),
               )
             else
               const SizedBox(width: 36),
@@ -916,10 +851,6 @@ class _MedListBodyState extends State<MedListBody>
   }
 }
 
-// ─────────────────────────────────────────────
-//  Filter bottom sheet  ← returns _FilterState
-// ─────────────────────────────────────────────
-
 class _FilterSheet extends StatefulWidget {
   final _FilterState initialFilter;
   const _FilterSheet({required this.initialFilter});
@@ -936,20 +867,39 @@ class _FilterSheetState extends State<_FilterSheet> {
   late String? _sortBy;
 
   static const _medTypeOptions = [
-    'Tablet', 'Inhaler', 'Cream', 'Syrup', 'Nasal Spray', 'Other'
+    'Tablet',
+    'Inhaler',
+    'Cream',
+    'Syrup',
+    'Nasal Spray',
+    'Other'
   ];
   static const _conditionOptions = [
-    'Asthma', 'Allergy', 'Mental Health', 'Cardiac',
-    'Diabetes', 'General Use', 'Pain', 'Skin Issues'
+    'Asthma',
+    'Allergy',
+    'Mental Health',
+    'Cardiac',
+    'Diabetes',
+    'General Use',
+    'Pain',
+    'Skin Issues'
   ];
   static const _dateRangeOptions = [
-    'Last 3 months', 'Last 6 months', 'Last 12 months'
+    'Last 3 months',
+    'Last 6 months',
+    'Last 12 months'
   ];
   static const _reasonOptions = [
-    'Completed course', 'Replaced by another', 'Side effects', 'No longer needed'
+    'Completed course',
+    'Replaced by another',
+    'Side effects',
+    'No longer needed'
   ];
   static const _sortOptions = [
-    'Most recent', 'Oldest first', 'A–Z by name', 'By condition'
+    'Most recent',
+    'Oldest first',
+    'A–Z by name',
+    'By condition'
   ];
 
   @override
@@ -1030,8 +980,8 @@ class _FilterSheetState extends State<_FilterSheet> {
                 child: GestureDetector(
                   onTap: _reset,
                   child: Text('Reset',
-                      style: AppTextStyles.t3R
-                          .copyWith(color: AppColors.primary)),
+                      style:
+                          AppTextStyles.t3R.copyWith(color: AppColors.primary)),
                 ),
               ),
               const SizedBox(height: 8),
@@ -1113,8 +1063,8 @@ class _FilterSheetState extends State<_FilterSheet> {
                     borderRadius: BorderRadius.circular(14)),
               ),
               child: Text('Apply',
-                  style: AppTextStyles.t2SB
-                      .copyWith(color: AppColors.white100)),
+                  style:
+                      AppTextStyles.t2SB.copyWith(color: AppColors.white100)),
             ),
           ),
         ),
@@ -1160,34 +1110,26 @@ class _FilterSection extends StatelessWidget {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 180),
               curve: Curves.easeInOut,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
               decoration: BoxDecoration(
-                color: isSel
-                    ? const Color(0xFF0D1017)
-                    : const Color(0xFF1E2330),
+                color:
+                    isSel ? const Color(0xFF0D1017) : const Color(0xFF1E2330),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: isSel
-                      ? AppColors.white100
-                      : AppColors.surfaceBorder,
+                  color: isSel ? AppColors.white100 : AppColors.surfaceBorder,
                   width: isSel ? 1.5 : 1.0,
                 ),
               ),
               child: Row(mainAxisSize: MainAxisSize.min, children: [
                 if (isSel) ...[
-                  const Icon(Icons.check,
-                      color: AppColors.white100, size: 13),
+                  const Icon(Icons.check, color: AppColors.white100, size: 13),
                   const SizedBox(width: 5),
                 ],
                 Text(
                   o,
                   style: AppTextStyles.t4R.copyWith(
-                    color: isSel
-                        ? AppColors.white100
-                        : AppColors.textSecondary,
-                    fontWeight:
-                        isSel ? FontWeight.w600 : FontWeight.w400,
+                    color: isSel ? AppColors.white100 : AppColors.textSecondary,
+                    fontWeight: isSel ? FontWeight.w600 : FontWeight.w400,
                   ),
                 ),
               ]),
@@ -1198,10 +1140,6 @@ class _FilterSection extends StatelessWidget {
     ]);
   }
 }
-
-// ─────────────────────────────────────────────
-//  Bottom nav
-// ─────────────────────────────────────────────
 
 class _NavItem {
   final String imagePath;

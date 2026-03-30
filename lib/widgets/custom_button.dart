@@ -1,10 +1,3 @@
-// lib/widgets/custom_button.dart
-//
-// A reusable button used across the app.
-// Usage:
-//   CustomButton(label: 'Get Started', onTap: () { ... })
-//   CustomButton(label: 'Skip', onTap: () { ... }, outlined: true)
-
 import 'package:flutter/material.dart';
 import '../core/constants/colors.dart';
 import '../core/constants/text_styles.dart';
@@ -19,14 +12,14 @@ class CustomButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.onTap,
-    this.outlined   = false,
-    this.isLoading  = false,
+    this.outlined = false,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width:  double.infinity,
+      width: double.infinity,
       height: 52,
       child: outlined
           ? OutlinedButton(
@@ -43,7 +36,8 @@ class CustomButton extends StatelessWidget {
               onPressed: isLoading ? null : onTap,
               child: isLoading
                   ? const SizedBox(
-                      width: 22, height: 22,
+                      width: 22,
+                      height: 22,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
                         color: Colors.white,
